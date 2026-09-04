@@ -1,7 +1,7 @@
 /* ============================================================
    Mirzo Yusuf (Bodomzor) Jome Masjidi — v1
    goyibyoronlar.uz asosida qurilgan, lekin MUTLAQO mustaqil
-   Koordinatalar: Toshkent shahri, Yunusobod tumani (41.3373, 69.2912)
+   Koordinatalar: Toshkent shahri, Yunusobod tumani (41.3372993, 69.2911802)
    ============================================================ */
 
 'use strict';
@@ -1845,7 +1845,7 @@ document.getElementById('dua-form')?.addEventListener('submit', async (e) => {
     const hashtag = `#Juma_${friDay}_${friMonth}_${nextFriday.getFullYear()}`;
 
     // Telegram bot token & chats
-    const botToken = window.MIRZO_YUSUF_BOT_TOKEN || ''; // Bot token o'rnatilmagan
+    const botToken = window.MIRZO_YUSUF_BOT_TOKEN || '8952765866:AAHJzrWGJ7l1WAOu2YEVu-Y-Hi1Sh4nurdo';
     const chatIds = window.MIRZO_YUSUF_ADMIN_IDS || []; // Admin chat IDlari o'rnatilmagan
     const tgText = `🤲 Yangi duo so'rovi:\n\n👤 Ism: ${userName}\n📝 Matn: ${messageInput}\n\n🕒 Vaqt: ${submissionTime}\n🔖 Xeshteg: ${hashtag}`;
 
@@ -2382,7 +2382,7 @@ document.getElementById('subscription-form')?.addEventListener('submit', async (
         `⏱ <b>Vaqt:</b> ${new Date().toLocaleString('uz-UZ')}`
       );
       // Send Telegram Notification to all Mosque Admins
-      const _bt = window.MIRZO_YUSUF_BOT_TOKEN || ''; // Mirzo Yusuf masjidi uchun alohida bot token kerak
+      const _bt = window.MIRZO_YUSUF_BOT_TOKEN || '8952765866:AAHJzrWGJ7l1WAOu2YEVu-Y-Hi1Sh4nurdo';
       const _adminChatIds = window.MIRZO_YUSUF_ADMIN_IDS || []; // Mirzo Yusuf adminlari chat IDlari
       _adminChatIds.forEach(cId => {
         fetch(`https://api.telegram.org/bot${_bt}/sendMessage?chat_id=${cId}&text=${tgText}&parse_mode=HTML`).catch(()=>{});
