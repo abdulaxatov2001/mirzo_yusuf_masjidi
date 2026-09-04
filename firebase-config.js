@@ -1,19 +1,18 @@
 // ============================================================
-//  MIRZO YUSUF (BODOMZOR) JOME MASJIDI
-//  FIREBASE KONFIGURATSIYASI — ALOHIDA LOYIHA
-//
-//  BU FAYL goyib_yoronlar_v2 loyihasidan MUTLAQO AJRATILGAN.
-//  Yangi Firebase loyihasi sozlamalarini https://console.firebase.google.com dan oling.
-//  Loyiha sozlamalari > Umumiy > "Veb ilovangiz" bo'limidan.
+// MIRZA YUSUF MASJIDI - FIREBASE CONFIGURATION
 // ============================================================
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY_HERE",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: "AIzaSyA-cAN8qvQI32cY3r44tFN1xKZip2frrGM",
+  authDomain: "mirza-yusuf-masjidi.firebaseapp.com",
+  databaseURL: "https://mirza-yusuf-masjidi-default-rtdb.europe-west1.firebasedatabase.app/",
+  projectId: "mirza-yusuf-masjidi",
+  storageBucket: "mirza-yusuf-masjidi.firebasestorage.app",
+  messagingSenderId: "15343557105",
+  appId: "1:15343557105:web:a4de3d646f47e79a724c50"
 };
+
+// ============================================================
+// Ushbu fayl faqat kalitlarni saqlaydi. 
+// Asosiy Firebase ishga tushirish (initializeApp) main.js da amalga oshiriladi.
+// ============================================================
