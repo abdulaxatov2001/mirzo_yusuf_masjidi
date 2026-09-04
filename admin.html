@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="robots" content="noindex, nofollow"/>
-  <title>Admin Panel | Mirzo Yusuf Jome Masjidi</title>
+  <title>Admin Panel | Mirza Yusuf Jome Masjidi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -229,7 +229,7 @@
   <div class="login-card">
     <div class="login-logo">
       <div class="icon"><span class="material-symbols-outlined">mosque</span></div>
-      <h1>MIRZO YUSUF MASJIDI</h1>
+      <h1>MIRZA YUSUF MASJIDI</h1>
       <p>Admin boshqaruv paneli — faqat vakolatli xodimlar</p>
     </div>
     <div class="form-group">
@@ -249,7 +249,7 @@
 <div id="admin-layout">
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <h2>⚡ Mirzo Yusuf</h2>
+      <h2>⚡ Mirza Yusuf</h2>
       <p>Jome Masjidi — Admin Panel</p>
     </div>
     <nav class="sidebar-nav">
@@ -562,7 +562,7 @@
           </div>
           <div class="form-group">
             <label>Karta egasi</label>
-            <input type="text" id="ch-owner" placeholder="Mirzo Yusuf Jome Masjidi"/>
+            <input type="text" id="ch-owner" placeholder="Mirza Yusuf Jome Masjidi"/>
           </div>
           <div class="form-group">
             <label>Elektr (yuridik hisob)</label>
@@ -611,11 +611,11 @@
 
     <!-- ══ TELEGRAM BOT ══ -->
     <div class="panel" id="panel-bot">
-      <div class="top-bar"><div><h1>Telegram Bot sozlamalari</h1><p>@mirzo_yusuf_masjidi_bot</p></div></div>
+      <div class="top-bar"><div><h1>Telegram Bot sozlamalari</h1><p>@Mirza_Yusuf_masjidi_bot</p></div></div>
       <div class="bot-setup-card">
         <h3 style="color:var(--gold);font-size:0.9rem;margin-bottom:8px;">📋 Admin chat ID olish</h3>
         <ol style="font-size:0.8rem;color:var(--muted);line-height:1.9;padding-left:18px;">
-          <li>Telegramda <strong style="color:var(--text);">@mirzo_yusuf_masjidi_bot</strong> ga <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">/start</code> yuboring</li>
+          <li>Telegramda <strong style="color:var(--text);">@Mirza_Yusuf_masjidi_bot</strong> ga <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">/start</code> yuboring</li>
           <li><strong style="color:var(--text);">@userinfobot</strong> ga yozing — u sizning chat IDingizni beradi</li>
           <li>Shu IDni quyidagi "Admin 1" maydoniga kiriting</li>
         </ol>
@@ -1067,7 +1067,7 @@ function saveCharity(){
   if(!fbReady||!db){alert('Firebase ulanmagan!');return;}
   db.ref('charity_info').set({
     general_card:document.getElementById('ch-card').value.trim(),
-    general_owner:document.getElementById('ch-owner').value.trim()||'Mirzo Yusuf Jome Masjidi',
+    general_owner:document.getElementById('ch-owner').value.trim()||'Mirza Yusuf Jome Masjidi',
     util_elec:document.getElementById('ch-elec').value.trim(),
     util_water:document.getElementById('ch-water').value.trim(),
     util_wifi:document.getElementById('ch-wifi').value.trim(),
@@ -1192,7 +1192,7 @@ async function testBot(){
   try{
     const res=await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({chat_id:id1,text:'✅ Mirzo Yusuf Masjidi — Bot test xabari muvaffaqiyatli yetdi!'})
+      body:JSON.stringify({chat_id:id1,text:'✅ Mirza Yusuf Masjidi — Bot test xabari muvaffaqiyatli yetdi!'})
     });
     const json=await res.json();
     if(json.ok)showMsg('bot-ok');

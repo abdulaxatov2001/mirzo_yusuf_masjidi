@@ -1,6 +1,6 @@
-# Mirzo Yusuf (Bodomzor) Jome Masjidi — Rasmiy Sayt
+# Mirza Yusuf (Bodomzor) Jome Masjidi — Rasmiy Sayt
 
-Toshkent shahri, Yunusobod tumani, Bodomzor ko'chasidagi Mirzo Yusuf jome masjidining rasmiy veb-sayti.
+Toshkent shahri, Yunusobod tumani, Bodomzor ko'chasidagi Mirza Yusuf jome masjidining rasmiy veb-sayti.
 
 ## 🕌 Masjid haqida
 - **Manzil:** Toshkent shahri, Yunusobod tumani

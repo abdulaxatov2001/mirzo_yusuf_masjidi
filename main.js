@@ -1,5 +1,5 @@
 /* ============================================================
-   Mirzo Yusuf (Bodomzor) Jome Masjidi — v1
+   Mirza Yusuf (Bodomzor) Jome Masjidi — v1
    goyibyoronlar.uz asosida qurilgan, lekin MUTLAQO mustaqil
    Koordinatalar: Toshkent shahri, Yunusobod tumani (41.3372993, 69.2911802)
    ============================================================ */
@@ -35,7 +35,7 @@ const translations = {
     "asr": "АСР",
     "shom": "ШОМ",
     "xufton": "ХУФТОН",
-    "official_site_tag": "Мирзо Юсуф Жоме Масжиди Расмий Сайти",
+    "official_site_tag": "Мирза Юсуф Жоме Масжиди Расмий Сайти",
     "site_subheading": "Жоме Масжиди",
     "hero_mosque_tag": "Жоме Масжиди",
     "nav_home": "Бош саҳифа",
@@ -51,7 +51,7 @@ const translations = {
     "nav_contact": "Алоқа",
     "nav_donate": "Эҳсон",
     "hero_title": "Хуш келибсиз",
-    "hero_title_inline": "МИРЗО ЮСУФ",
+    "hero_title_inline": "МИРЗА ЮСУФ",
     "hero_subtitle": "Тошкент шаҳри, Юнусобод тумани, Боғишамол кўчаси",
     "next_prayer_in": "Кейинги намозга:",
     "prayers_heading": "Намоз Вақтлари",
@@ -61,7 +61,7 @@ const translations = {
     "location_name": "Тошкент",
     "hijri_prefix": "Ҳижрий",
     "about_title": "Биз ҳақимизда",
-    "about_text": "Мирзо Юсуф (Бодомзор) жоме масжиди Тошкент шаҳри Юнусобод туманида, Боғишамол кўчасида жойлашган. Масжид маҳаллий аҳоли учун нафақат ибодатхона, балки маънавий тарбия ўчоғи ҳам ҳисобланади.",
+    "about_text": "Мирза Юсуф (Бодомзор) жоме масжиди Тошкент шаҳри Юнусобод туманида, Боғишамол кўчасида жойлашган. Масжид маҳаллий аҳоли учун нафақат ибодатхона, балки маънавий тарбия ўчоғи ҳам ҳисобланади.",
     "team_title": "Масжид Жамоаси",
     "team_subtitle": "Барча ходимлар ва имом-хатиблар (батафсил кўриш учун босинг)",
     "sponsors_title": "Фахрийлар ва ҳомийлар",
@@ -103,7 +103,7 @@ const translations = {
     "sub_phone_ph": "+998 90 123 45 67",
     "sub_delivery_label": "Етказиб бериш усули",
     "sub_delivery_opt1": "Uyga yetkazib berish",
-    "sub_delivery_opt2": "Мирзо Юсуф масжидидан олиб кетиш",
+    "sub_delivery_opt2": "Мирза Юсуф масжидидан олиб кетиш",
     "sub_address_label": "Манзил / Мўлжал",
     "sub_address_ph": "Масалан: Юнусобод тумани, 7-мавзе",
     "sub_total_label": "Жами тўлов:",
@@ -144,7 +144,7 @@ const translations = {
     "next_page": "Кейинги ›",
     "monthly_calendar_btn": "Ойлик тақвим",
     "monthly_calendar_title": "Ойлик намоз тақвими",
-    "monthly_calendar_sub": "Мирзо Юсуф (Бодомзор) Жоме Масжиди (Тошкент, Юнусобод)",
+    "monthly_calendar_sub": "Мирза Юсуф (Бодомзор) Жоме Масжиди (Тошкент, Юнусобод)",
     "th_day": "Кун",
     "th_weekday": "Ҳафта куни",
     "th_hijri": "Ҳижрий",
@@ -161,7 +161,7 @@ const translations = {
     "asr": "ASR",
     "shom": "SHOM",
     "xufton": "XUFTON",
-    "official_site_tag": "Mirzo Yusuf Jome Masjidi Rasmiy Sayti",
+    "official_site_tag": "Mirza Yusuf Jome Masjidi Rasmiy Sayti",
     "site_subheading": "Jome Masjidi",
     "hero_mosque_tag": "Jome Masjidi",
     "nav_home": "Bosh sahifa",
@@ -177,7 +177,7 @@ const translations = {
     "nav_contact": "Aloqa",
     "nav_donate": "Ehson",
     "hero_title": "Xush kelibsiz",
-    "hero_title_inline": "MIRZO YUSUF",
+    "hero_title_inline": "MIRZA YUSUF",
     "hero_subtitle": "Toshkent shahri, Yunusobod tumani, Bog'ishamol ko'chasi",
     "next_prayer_in": "Keyingi namozga:",
     "prayers_heading": "Namoz Vaqtlari",
@@ -187,7 +187,7 @@ const translations = {
     "location_name": "Toshkent",
     "hijri_prefix": "Hijriy",
     "about_title": "Biz haqimizda",
-    "about_text": "Mirzo Yusuf (Bodomzor) jome masjidi Toshkent shahri Yunusobod tumanida, Bog'ishamol ko'chasida joylashgan. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i ham hisoblanadi.",
+    "about_text": "Mirza Yusuf (Bodomzor) jome masjidi Toshkent shahri Yunusobod tumanida, Bog'ishamol ko'chasida joylashgan. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i ham hisoblanadi.",
     "team_title": "Masjid Jamoasi",
     "team_subtitle": "Barcha xodimlar va imom-xatiblar (batafsil ko'rish uchun bosing)",
     "sponsors_title": "Faxriylar va homiylar",
@@ -229,7 +229,7 @@ const translations = {
     "sub_phone_ph": "+998 90 123 45 67",
     "sub_delivery_label": "Yetkazib berish usuli",
     "sub_delivery_opt1": "Uyga yetkazib berish",
-    "sub_delivery_opt2": "Mirzo Yusuf masjididan olib ketish",
+    "sub_delivery_opt2": "Mirza Yusuf masjididan olib ketish",
     "sub_address_label": "Manzil / Mo'ljal",
     "sub_address_ph": "Masalan: Yunusobod tumani, 7-mavze",
     "sub_total_label": "Jami to'lov:",
@@ -270,7 +270,7 @@ const translations = {
     "next_page": "Keyingi ›",
     "monthly_calendar_btn": "Oylik taqvim",
     "monthly_calendar_title": "Oylik namoz taqvimi",
-    "monthly_calendar_sub": "Mirzo Yusuf (Bodomzor) Jome Masjidi (Toshkent, Yunusobod)",
+    "monthly_calendar_sub": "Mirza Yusuf (Bodomzor) Jome Masjidi (Toshkent, Yunusobod)",
     "th_day": "Kun",
     "th_weekday": "Hafta kuni",
     "th_hijri": "Hijriy",
@@ -287,7 +287,7 @@ const translations = {
     "asr": "АСР",
     "shom": "МАГРИБ",
     "xufton": "ИША",
-    "official_site_tag": "Официальный сайт соборной мечети «Мирзо Юсуф»",
+    "official_site_tag": "Официальный сайт соборной мечети «Мирза Юсуф»",
     "site_subheading": "Соборная Мечеть",
     "hero_mosque_tag": "Соборная Мечеть",
     "nav_home": "Главная",
@@ -303,7 +303,7 @@ const translations = {
     "nav_contact": "Контакты",
     "nav_donate": "Пожертвовать",
     "hero_title": "Добро пожаловать",
-    "hero_title_inline": "МИРЗО ЮСУФ",
+    "hero_title_inline": "МИРЗА ЮСУФ",
     "hero_subtitle": "г. Ташкент, Юнусабадский район, ул. Богишамол",
     "next_prayer_in": "До следующего намаза:",
     "prayers_heading": "Время Намаза",
@@ -313,7 +313,7 @@ const translations = {
     "location_name": "Ташкент",
     "hijri_prefix": "Хиджра",
     "about_title": "О нас",
-    "about_text": "Соборная мечеть «Мирзо Юсуф» (Бодомзор) расположена в Юнусабадском районе Ташкента, на улице Богишамол. Мечеть является для местных жителей местом поклонения и духовного воспитания.",
+    "about_text": "Соборная мечеть «Мирза Юсуф» (Бодомзор) расположена в Юнусабадском районе Ташкента, на улице Богишамол. Мечеть является для местных жителей местом поклонения и духовного воспитания.",
     "team_title": "Команда мечети",
     "team_subtitle": "Все сотрудники и имамы (нажмите для подробностей)",
     "sponsors_title": "Почётные лица и спонсоры",
@@ -355,7 +355,7 @@ const translations = {
     "sub_phone_ph": "+998 90 123 45 67",
     "sub_delivery_label": "Способ доставки",
     "sub_delivery_opt1": "Доставка на дом",
-    "sub_delivery_opt2": "Самовывоз из мечети Мирзо Юсуф",
+    "sub_delivery_opt2": "Самовывоз из мечети Мирза Юсуф",
     "sub_address_label": "Адрес / Ориентир",
     "sub_address_ph": "Например: Юнусабадский р-н, 7-квартал",
     "sub_total_label": "Итого к оплате:",
@@ -396,7 +396,7 @@ const translations = {
     "next_page": "Вперед ›",
     "monthly_calendar_btn": "Месячный календарь",
     "monthly_calendar_title": "Месячное расписание намаза",
-    "monthly_calendar_sub": "Соборная мечеть «Мирзо Юсуф» (Бодомзор), Ташкент",
+    "monthly_calendar_sub": "Соборная мечеть «Мирза Юсуф» (Бодомзор), Ташкент",
     "th_day": "День",
     "th_weekday": "День недели",
     "th_hijri": "Хиджра",
@@ -413,7 +413,7 @@ const translations = {
     "asr": "ASR",
     "shom": "MAGHRIB",
     "xufton": "ISHA",
-    "official_site_tag": "Official Website of Mirzo Yusuf Mosque",
+    "official_site_tag": "Official Website of Mirza Yusuf Mosque",
     "site_subheading": "Jome Mosque",
     "hero_mosque_tag": "Jome Mosque",
     "nav_home": "Home",
@@ -429,7 +429,7 @@ const translations = {
     "nav_contact": "Contact",
     "nav_donate": "Donate",
     "hero_title": "Welcome",
-    "hero_title_inline": "MIRZO YUSUF",
+    "hero_title_inline": "MIRZA YUSUF",
     "hero_subtitle": "Tashkent city, Yunusobod district, Bog'ishamol str.",
     "next_prayer_in": "Next prayer in:",
     "prayers_heading": "Prayer Times",
@@ -439,7 +439,7 @@ const translations = {
     "location_name": "Tashkent",
     "hijri_prefix": "Hijri",
     "about_title": "About Us",
-    "about_text": "Mirzo Yusuf (Bodomzor) Mosque is located in Yunusobod district, Tashkent city, Bog'ishamol street. It serves the local community as both a place of worship and a spiritual center.",
+    "about_text": "Mirza Yusuf (Bodomzor) Mosque is located in Yunusobod district, Tashkent city, Bog'ishamol street. It serves the local community as both a place of worship and a spiritual center.",
     "team_title": "Mosque Team",
     "team_subtitle": "All staff and imams (click to view details)",
     "sponsors_title": "Honorable sponsors",
@@ -481,7 +481,7 @@ const translations = {
     "sub_phone_ph": "+998 90 123 45 67",
     "sub_delivery_label": "Delivery Method",
     "sub_delivery_opt1": "Home delivery in Tuda village",
-    "sub_delivery_opt2": "Pick up from Mirzo Yusuf Mosque",
+    "sub_delivery_opt2": "Pick up from Mirza Yusuf Mosque",
     "sub_address_label": "Address / Landmark",
     "sub_address_ph": "E.g. Yunusobod district, 7th micro-district",
     "sub_total_label": "Total Amount:",
@@ -522,7 +522,7 @@ const translations = {
     "next_page": "Next ›",
     "monthly_calendar_btn": "Monthly Calendar",
     "monthly_calendar_title": "Monthly Prayer Timetable",
-    "monthly_calendar_sub": "Mirzo Yusuf (Bodomzor) Mosque (Tashkent, Yunusobod)",
+    "monthly_calendar_sub": "Mirza Yusuf (Bodomzor) Mosque (Tashkent, Yunusobod)",
     "th_day": "Day",
     "th_weekday": "Weekday",
     "th_hijri": "Hijri",
@@ -912,7 +912,7 @@ window.addEventListener('popstate', () => {
 
 // ============ FIREBASE INITIALIZATION ============
 // Firebase Konfiguratsiyasi (Asosiy + Zaxira)
-// MIRZO YUSUF MASJIDI — Firebase sozlamalari firebase-config.js dan olinadi
+// MIRZA YUSUF MASJIDI — Firebase sozlamalari firebase-config.js dan olinadi
 // Agar firebase-config.js mavjud bo'lmasa yoki noto'g'ri bo'lsa, quyidagi standart config ishlatiladi
 // DIQQAT: Bu konfiguratsiyani goyib_yoronlar bilan aralashtirmang!
 const defaultFirebaseConfig = {
@@ -1453,7 +1453,7 @@ function renderCharity(data) {
   if (!container) return;
 
   const cardNum = data.general_card || '8600 0000 0000 0000';
-  const cardOwner = data.general_owner || (currentLang === 'uz_cy' ? "Мирзо Юсуф Жоме Масжиди" : (currentLang === 'ru' ? "Соборная Мечеть Мирзо Юсуф" : "Mirzo Yusuf Jome Masjidi"));
+  const cardOwner = data.general_owner || (currentLang === 'uz_cy' ? "Мирза Юсуф Жоме Масжиди" : (currentLang === 'ru' ? "Соборная Мечеть Мирза Юсуф" : "Mirza Yusuf Jome Masjidi"));
 
   const t = translations[currentLang] || translations.uz_lt;
 
@@ -1564,7 +1564,7 @@ function renderCharity(data) {
       </div>
 
       <!-- Domo button under utilities -->
-      <a class="w-full bg-emerald-deep hover:bg-emerald-light text-white font-label-caps text-[12px] py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm font-bold mt-1" href="https://domo.uz/donation/mirzo-yusuf-masjidi" target="_blank">
+      <a class="w-full bg-emerald-deep hover:bg-emerald-light text-white font-label-caps text-[12px] py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm font-bold mt-1" href="https://domo.uz/donation/mirza-yusuf-masjidi" target="_blank">
         <span class="material-symbols-outlined text-[18px]">payment</span>
         <span>${t.domo_btn}</span>
       </a>
@@ -2121,7 +2121,7 @@ function printBeautifulMonthlyCalendar() {
     <html lang="uz">
     <head>
       <meta charset="utf-8">
-      <title>Намоз ва Азон Тақвими — ${monthYearTitle} | Мирзо Юсуф Жоме Масжиди</title>
+      <title>Намоз ва Азон Тақвими — ${monthYearTitle} | Мирза Юсуф Жоме Масжиди</title>
       <style>
         @page { size: A4 portrait; margin: 6mm 7mm 6mm 7mm; }
         body {
@@ -2206,7 +2206,7 @@ function printBeautifulMonthlyCalendar() {
     <body>
       <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
       <div class="header-card">
-        <h1>МИРЗО ЮСУФ (БОДОМЗОР) ЖОМЕ МАСЖИДИ</h1>
+        <h1>МИРЗА ЮСУФ (БОДОМЗОР) ЖОМЕ МАСЖИДИ</h1>
         <h2>ОЙЛИК НАМОЗ ВА АЗОН ТАҚВИМИ — ${monthYearTitle.toUpperCase()}</h2>
         <div class="meta">Тошкент шаҳри, Юнусобод тумани (41.3373° N, 69.2912° E) &bull; Ҳанафий мазҳаби бўйича</div>
       </div>
@@ -2232,7 +2232,7 @@ function printBeautifulMonthlyCalendar() {
 
       <div class="footer">
         <span>📍 <em>«Албатта, намоз мўминларга вақти тайин қилинган фарз бўлди» (Нисо, 103)</em></span>
-        <span class="highlight">Расмий канал: @mirzo_yusuf_masjidi &bull; mirzoyusuf.uz</span>
+        <span class="highlight">Расмий канал: @Mirza_Yusuf_masjidi &bull; mirzayusuf.uz</span>
       </div>
 
       <script>
@@ -2383,7 +2383,7 @@ document.getElementById('subscription-form')?.addEventListener('submit', async (
       );
       // Send Telegram Notification to all Mosque Admins
       const _bt = window.MIRZO_YUSUF_BOT_TOKEN || '8952765866:AAHJzrWGJ7l1WAOu2YEVu-Y-Hi1Sh4nurdo';
-      const _adminChatIds = window.MIRZO_YUSUF_ADMIN_IDS || []; // Mirzo Yusuf adminlari chat IDlari
+      const _adminChatIds = window.MIRZO_YUSUF_ADMIN_IDS || []; // Mirza Yusuf adminlari chat IDlari
       _adminChatIds.forEach(cId => {
         fetch(`https://api.telegram.org/bot${_bt}/sendMessage?chat_id=${cId}&text=${tgText}&parse_mode=HTML`).catch(()=>{});
       });
