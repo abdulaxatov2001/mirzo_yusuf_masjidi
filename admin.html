@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Admin Panel | Mirzo Yusuf Jome Masjidi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0f0d;
+      --surface: #0f1a16;
+      --card: rgba(16, 36, 27, 0.85);
+      --card-border: rgba(212, 160, 23, 0.18);
+      --green: #064e3b;
+      --green-light: #065f46;
+      --gold: #D4A017;
+      --gold-dim: rgba(212, 160, 23, 0.65);
+      --text: #e8f0eb;
+      --muted: rgba(200, 220, 210, 0.55);
+      --input-bg: rgba(255,255,255,0.05);
+      --input-border: rgba(212, 160, 23, 0.2);
+      --input-focus: rgba(212, 160, 23, 0.5);
+      --danger: #ef4444;
+      --success: #22c55e;
+      --radius: 14px;
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(6,78,59,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 85% 80%, rgba(212,160,23,0.08) 0%, transparent 55%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── LOGIN SCREEN ─── */
+    #login-screen {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(6,78,59,0.45) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 85% 80%, rgba(212,160,23,0.08) 0%, transparent 55%);
+    }
+
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px 36px;
+      width: 100%; max-width: 420px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,160,23,0.08);
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .login-logo {
+      text-align: center; margin-bottom: 28px;
+    }
+    .login-logo .icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+      box-shadow: 0 8px 24px rgba(6,78,59,0.5);
+    }
+    .login-logo .icon span { font-size: 32px; color: var(--gold); }
+    .login-logo h1 { font-size: 1.25rem; font-weight: 800; color: var(--gold); letter-spacing: -0.3px; }
+    .login-logo p { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* ─── LAYOUT ─── */
+    #admin-layout { display: none; min-height: 100vh; }
+
+    .sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0; width: 240px;
+      background: var(--surface);
+      border-right: 1px solid rgba(212,160,23,0.12);
+      display: flex; flex-direction: column;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .sidebar-brand {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid rgba(212,160,23,0.1);
+    }
+    .sidebar-brand h2 {
+      font-size: 0.82rem; font-weight: 800;
+      color: var(--gold); text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .sidebar-brand p { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+    .sidebar-nav { flex: 1; padding: 12px 8px; overflow-y: auto; }
+    .sidebar-nav::-webkit-scrollbar { display: none; }
+
+    .nav-section-label {
+      font-size: 0.65rem; font-weight: 700;
+      color: rgba(200,220,210,0.4); text-transform: uppercase; letter-spacing: 1px;
+      padding: 8px 12px 4px;
+    }
+
+    .nav-btn {
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; padding: 9px 14px; border-radius: 10px;
+      border: none; background: transparent; color: var(--muted);
+      font-family: inherit; font-size: 0.82rem; font-weight: 500;
+      cursor: pointer; text-align: left;
+      transition: var(--transition);
+      margin-bottom: 2px;
+    }
+    .nav-btn:hover { background: rgba(6,78,59,0.3); color: var(--text); }
+    .nav-btn.active { background: rgba(212,160,23,0.15); color: var(--gold); font-weight: 700; }
+    .nav-btn .material-symbols-outlined { font-size: 18px; flex-shrink: 0; }
+
+    .sidebar-footer {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(212,160,23,0.1);
+      font-size: 0.7rem; color: var(--muted); text-align: center;
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    .main-content {
+      margin-left: 240px;
+      min-height: 100vh;
+      padding: 28px 32px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main-content { margin-left: 0; padding: 16px; }
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .top-bar h1 { font-size: 1.3rem; font-weight: 800; color: var(--gold); }
+    .top-bar p { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* ─── PANELS ─── */
+    .panel { display: none; animation: fadeUp 0.3s ease; }
+    .panel.active { display: block; }
+
+    /* ─── STATS GRID ─── */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      backdrop-filter: blur(12px);
+    }
+    .stat-card .label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; margin-bottom: 6px; }
+    .stat-card .value { font-size: 1.8rem; font-weight: 800; color: var(--gold); line-height: 1; }
+    .stat-card .sub { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+
+    /* ─── CARD ─── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 0.88rem; font-weight: 700; color: var(--gold);
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 18px; padding-bottom: 12px;
+      border-bottom: 1px solid rgba(212,160,23,0.12);
+    }
+    .card-title .material-symbols-outlined { font-size: 20px; }
+
+    /* ─── FORMS ─── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-grid.cols-1 { grid-template-columns: 1fr; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    input, textarea, select {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 10px;
+      color: var(--text);
+      padding: 11px 14px;
+      font-size: 0.88rem; font-family: inherit;
+      outline: none; transition: var(--transition);
+      width: 100%;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--input-focus);
+      background: rgba(212,160,23,0.05);
+      box-shadow: 0 0 0 3px rgba(212,160,23,0.1);
+    }
+    textarea { resize: vertical; min-height: 88px; }
+    select option { background: #0f1a16; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 20px; border-radius: 10px; border: none;
+      font-family: inherit; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn-primary { background: var(--gold); color: #071410; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-danger { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+    .btn-danger:hover { background: rgba(239,68,68,0.25); }
+    .btn-ghost { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.1); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+    .btn-sm { padding: 7px 14px; font-size: 0.78rem; }
+    .btn .material-symbols-outlined { font-size: 16px; }
+
+    /* ─── TABLES ─── */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--card-border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    thead { background: rgba(6,78,59,0.4); }
+    thead th { padding: 10px 14px; text-align: left; color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; white-space: nowrap; }
+    tbody tr { border-top: 1px solid rgba(212,160,23,0.08); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(6,78,59,0.15); }
+    tbody td { padding: 10px 14px; color: var(--text); vertical-align: middle; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 99px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
+    .badge-gold { background: rgba(212,160,23,0.15); color: var(--gold); }
+    .badge-green { background: rgba(34,197,94,0.12); color: #86efac; }
+    .badge-red { background: rgba(239,68,68,0.12); color: #fca5a5; }
+
+    /* ─── MESSAGES ─── */
+    .msg { display: none; padding: 12px 16px; border-radius: 10px; font-size: 0.85rem; align-items: center; gap: 10px; margin-top: 14px; }
+    .msg.show { display: flex; }
+    .msg-success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #86efac; }
+    .msg-error { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+
+    /* ─── PRAYER TIME DISPLAY ─── */
+    .prayer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+    @media (min-width: 600px) { .prayer-grid { grid-template-columns: repeat(6, 1fr); } }
+    .prayer-item { background: rgba(6,78,59,0.25); border: 1px solid rgba(212,160,23,0.15); border-radius: 10px; padding: 10px; text-align: center; }
+    .prayer-item .pname { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .prayer-item .ptime { font-size: 1.1rem; font-weight: 800; color: var(--gold); font-variant-numeric: tabular-nums; }
+
+    /* ─── TELEGRAM BOT CONFIG ─── */
+    .bot-status { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; margin-bottom: 14px; }
+    .bot-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: pulse 2s infinite; }
+    .bot-dot.active { background: #22c55e; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.5} }
+
+    /* ─── SPINNER ─── */
+    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── TABS ─── */
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid rgba(212,160,23,0.12); margin-bottom: 20px; }
+    .tab-btn { padding: 8px 16px; border: none; background: transparent; color: var(--muted); font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: var(--transition); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ─── ITEMS LIST ─── */
+    .item-list { display: flex; flex-direction: column; gap: 8px; }
+    .item-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212,160,23,0.1);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    }
+    .item-info { flex: 1; min-width: 0; }
+    .item-name { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .item-meta { font-size: 0.72rem; color: var(--muted); }
+    .item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+    /* ─── BOT SETUP ─── */
+    .bot-card {
+      background: rgba(212,160,23,0.06);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: var(--radius); padding: 20px; margin-bottom: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ LOGIN ═══════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="icon">
+        <span class="material-symbols-outlined">mosque</span>
+      </div>
+      <h1>MIRZO YUSUF MASJIDI</h1>
+      <p>Admin boshqaruv paneli — faqat vakolatli xodimlar uchun</p>
+    </div>
+
+    <div class="form-group">
+      <label>Parol</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%;margin-top:18px;" id="login-btn" onclick="doLogin()">
+      <span class="material-symbols-outlined">login</span>
+      Kirish
+    </button>
+
+    <div class="msg msg-error" id="login-error" style="margin-top:12px;">
+      <span class="material-symbols-outlined" style="font-size:18px;">error</span>
+      <span>Parol noto'g'ri! Qayta urinib ko'ring.</span>
+    </div>
+
+    <p style="text-align:center;font-size:0.72rem;color:var(--muted);margin-top:20px;">
+      Kirish uchun ma'muriyat bilan bog'laning
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ ADMIN LAYOUT ═══════════════════════════════ -->
+<div id="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>⚡ Mirzo Yusuf</h2>
+      <p>Jome Masjidi — Admin Panel</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Bosh sahifa</div>
+      <button class="nav-btn active" onclick="showPanel('dashboard')">
+        <span class="material-symbols-outlined">dashboard</span> Boshqaruv
+      </button>
+
+      <div class="nav-section-label">Masjid</div>
+      <button class="nav-btn" onclick="showPanel('prayers')">
+        <span class="material-symbols-outlined">schedule</span> Namoz vaqtlari
+      </button>
+      <button class="nav-btn" onclick="showPanel('news')">
+        <span class="material-symbols-outlined">newspaper</span> Yangiliklar
+      </button>
+      <button class="nav-btn" onclick="showPanel('team')">
+        <span class="material-symbols-outlined">groups</span> Jamoa
+      </button>
+      <button class="nav-btn" onclick="showPanel('sponsors')">
+        <span class="material-symbols-outlined">star</span> Faxriylar
+      </button>
+      <button class="nav-btn" onclick="showPanel('gallery')">
+        <span class="material-symbols-outlined">photo_library</span> Galereya
+      </button>
+      <button class="nav-btn" onclick="showPanel('charity')">
+        <span class="material-symbols-outlined">volunteer_activism</span> Xayriya
+      </button>
+
+      <div class="nav-section-label">Murojaatlar</div>
+      <button class="nav-btn" onclick="showPanel('subscriptions')">
+        <span class="material-symbols-outlined">auto_stories</span> Obunalar
+      </button>
+      <button class="nav-btn" onclick="showPanel('dua-requests')">
+        <span class="material-symbols-outlined">prayer_times</span> Duo so'rovlar
+      </button>
+
+      <div class="nav-section-label">Sozlamalar</div>
+      <button class="nav-btn" onclick="showPanel('bot-settings')">
+        <span class="material-symbols-outlined">smart_toy</span> Telegram Bot
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn btn-ghost btn-sm" style="width:100%;" onclick="doLogout()">
+        <span class="material-symbols-outlined">logout</span> Chiqish
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- ── DASHBOARD ── -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="top-bar">
+        <div>
+          <h1>Boshqaruv paneli</h1>
+          <p id="dash-datetime">Yuklanmoqda...</p>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <a href="index.html" target="_blank" class="btn btn-ghost btn-sm">
+            <span class="material-symbols-outlined">open_in_new</span> Saytni ko'rish
+          </a>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">Jami tashriflar</div>
+          <div class="value" id="stat-visits">—</div>
+          <div class="sub">Sayt ochilgan</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Bugungi tashriflar</div>
+          <div class="value" id="stat-today">—</div>
+          <div class="sub">Bugun</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Yangiliklar</div>
+          <div class="value" id="stat-news">—</div>
+          <div class="sub">Jami maqola</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Jamoa a'zolari</div>
+          <div class="value" id="stat-team">—</div>
+          <div class="sub">Xodimlar</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Duo so'rovlar</div>
+          <div class="value" id="stat-dua">—</div>
+          <div class="sub">Jami</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Obunalar</div>
+          <div class="value" id="stat-subs">—</div>
+          <div class="sub">Jami ariza</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="material-symbols-outlined">schedule</span>
+          Joriy namoz vaqtlari
+        </div>
+        <div class="prayer-grid" id="dash-prayer-times">
+          <div class="prayer-item"><div class="pname">Bomdod</div><div class="ptime" id="dp-bomdod">--:--</div></div>
+          <div class="prayer-item"><div class="pname">Quyosh</div><div class="ptime" id="dp-quyosh">--:--</div></div>
+          <div class="prayer-item"><div class="pname">Peshin</div><div class="ptime" id="dp-peshin">--:--</div></div>
+          <div class="prayer-item"><div class="pname">Asr</div><div class="ptime" id="dp-asr">--:--</div></div>
+          <div class="prayer-item"><div class="pname">Shom</div><div class="ptime" id="dp-shom">--:--</div></div>
+          <div class="prayer-item"><div class="pname">Xufton</div><div class="ptime" id="dp-xufton">--:--</div></div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="showPanel('prayers')">
+          <span class="material-symbols-outlined">edit</span> Vaqtlarni tahrirlash
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="material-symbols-outlined">smart_toy</span>
+          Telegram Bot holati
+        </div>
+        <div class="bot-status" id="bot-status-indicator">
+          <div class="bot-dot" id="bot-dot"></div>
+          <span id="bot-status-text">Tekshirilmoqda...</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted);">
+          Bot sozlamalarini yangilash uchun <strong style="color:var(--gold);cursor:pointer;" onclick="showPanel('bot-settings')">Bot sozlamalari</strong> bo'limiga o'ting.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── NAMOZ VAQTLARI ── -->
+    <div class="panel" id="panel-prayers">
+      <div class="top-bar">
+        <div><h1>Namoz vaqtlari</h1><p>Masjidda o'qilish vaqtlari</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="material-symbols-outlined">edit_calendar</span>
+          Vaqtlarni yangilash
+        </div>
+        <div class="prayer-grid" style="margin-bottom:20px;">
+          <div class="prayer-item">
+            <div class="pname">Bomdod</div>
+            <input type="time" id="p-bomdod" value="05:00" style="padding:4px 6px;font-size:0.85rem;text-align:center;"/>
+          </div>
+          <div class="prayer-item">
+            <div class="pname">Quyosh</div>
+            <input type="time" id="p-quyosh" value="06:30" style="padding:4px 6px;font-size:0.85rem;text-align:center;"/>
+          </div>
+          <div class="prayer-item">
+            <div class="pname">Peshin</div>
+            <input type="time" id="p-peshin" value="13:15" style="padding:4px 6px;font-size:0.85rem;text-align:center;"/>
+          </div>
+          <div class="prayer-item">
+            <div class="pname">Asr</div>
+            <input type="time" id="p-asr" value="17:30" style="padding:4px 6px;font-size:0.85rem;text-align:center;"/>
+          </div>
+          <div class="prayer-item">
+            <div class="pname">Shom</div>
+            <input type="time" id="p-shom" value="20:15" style="padding:4px 6px;font-size:0.85rem;text-align:center;"/>
+          </div>
+          <div class="prayer-item">
+            <div class="pname">Xufton</div>
+            <input type="time" id="p-xufton" value="22:00" style="padding:4px 6px;font-size:0.85rem;text-align:center;"/>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="savePrayerTimes()">
+          <span class="material-symbols-outlined">save</span> Saqlash
+        </button>
+        <div class="msg msg-success" id="prayer-msg-ok"><span class="material-symbols-outlined">check_circle</span> Namoz vaqtlari saqlandi!</div>
+        <div class="msg msg-error" id="prayer-msg-err"><span class="material-symbols-outlined">error</span> Xatolik yuz berdi.</div>
+      </div>
+    </div>
+
+    <!-- ── YANGILIKLAR ── -->
+    <div class="panel" id="panel-news">
+      <div class="top-bar">
+        <div><h1>Yangiliklar</h1><p>Maqolalar va xabarlar</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">add_circle</span> Yangi maqola qo'shish</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Sarlavha</label>
+            <input type="text" id="news-title" placeholder="Maqola sarlavhasi"/>
+          </div>
+          <div class="form-group">
+            <label>Sana</label>
+            <input type="date" id="news-date"/>
+          </div>
+          <div class="form-group">
+            <label>Rasm URL (ixtiyoriy)</label>
+            <input type="url" id="news-img" placeholder="https://..."/>
+          </div>
+          <div class="form-group" style="grid-column:1/-1;">
+            <label>Mazmuni (Markdown qo'llab-quvvatlanadi)</label>
+            <textarea id="news-content" placeholder="Maqola matni..."></textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addNews()">
+          <span class="material-symbols-outlined">publish</span> Chop etish
+        </button>
+        <div class="msg msg-success" id="news-msg-ok"><span class="material-symbols-outlined">check_circle</span> Maqola qo'shildi!</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">list</span> Barcha maqolalar</div>
+        <div class="item-list" id="news-list"><p style="color:var(--muted);font-size:0.82rem;">Yuklanmoqda...</p></div>
+      </div>
+    </div>
+
+    <!-- ── JAMOA ── -->
+    <div class="panel" id="panel-team">
+      <div class="top-bar">
+        <div><h1>Jamoa a'zolari</h1><p>Imom, xatib va xodimlar</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">person_add</span> Yangi a'zo qo'shish</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Ismi *</label>
+            <input type="text" id="team-name" placeholder="To'liq ismi"/>
+          </div>
+          <div class="form-group">
+            <label>Lavozimi *</label>
+            <input type="text" id="team-role" placeholder="Imom, Xatib, Muazzin..."/>
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" id="team-phone" placeholder="+998 90 123 45 67"/>
+          </div>
+          <div class="form-group">
+            <label>Telegram</label>
+            <input type="text" id="team-tg" placeholder="@username"/>
+          </div>
+          <div class="form-group">
+            <label>Rasm URL</label>
+            <input type="url" id="team-img" placeholder="https://..."/>
+          </div>
+          <div class="form-group" style="grid-column:1/-1;">
+            <label>Biografiya</label>
+            <textarea id="team-desc" placeholder="Qisqacha ma'lumot..."></textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addTeamMember()">
+          <span class="material-symbols-outlined">save</span> Qo'shish
+        </button>
+        <div class="msg msg-success" id="team-msg-ok"><span class="material-symbols-outlined">check_circle</span> A'zo qo'shildi!</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">list</span> Jamoa a'zolari</div>
+        <div class="item-list" id="team-list"><p style="color:var(--muted);font-size:0.82rem;">Yuklanmoqda...</p></div>
+      </div>
+    </div>
+
+    <!-- ── FAXRIYLAR ── -->
+    <div class="panel" id="panel-sponsors">
+      <div class="top-bar">
+        <div><h1>Faxriylar va homiylar</h1></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">star_add</span> Yangi faxriy qo'shish</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Ismi *</label>
+            <input type="text" id="sponsor-name" placeholder="To'liq ismi"/>
+          </div>
+          <div class="form-group">
+            <label>Rasm URL</label>
+            <input type="url" id="sponsor-img" placeholder="https://..."/>
+          </div>
+          <div class="form-group" style="grid-column:1/-1;">
+            <label>Hissa / Tavsif</label>
+            <textarea id="sponsor-desc" placeholder="Masjidga qo'shgan hissasi..."></textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addSponsor()">
+          <span class="material-symbols-outlined">save</span> Qo'shish
+        </button>
+        <div class="msg msg-success" id="sponsor-msg-ok"><span class="material-symbols-outlined">check_circle</span> Qo'shildi!</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">list</span> Faxriylar ro'yxati</div>
+        <div class="item-list" id="sponsors-list"><p style="color:var(--muted);font-size:0.82rem;">Yuklanmoqda...</p></div>
+      </div>
+    </div>
+
+    <!-- ── GALEREYA ── -->
+    <div class="panel" id="panel-gallery">
+      <div class="top-bar">
+        <div><h1>Foto galereya</h1></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">add_photo_alternate</span> Rasm qo'shish</div>
+        <div class="form-grid cols-1">
+          <div class="form-group">
+            <label>Rasm URL *</label>
+            <input type="url" id="gallery-url" placeholder="https://... (Google Drive, Cloudinary, Imgbb, ...)"/>
+          </div>
+          <div class="form-group">
+            <label>Sarlavha (ixtiyoriy)</label>
+            <input type="text" id="gallery-caption" placeholder="Rasm tavsifi"/>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addGalleryItem()">
+          <span class="material-symbols-outlined">upload</span> Qo'shish
+        </button>
+        <div class="msg msg-success" id="gallery-msg-ok"><span class="material-symbols-outlined">check_circle</span> Rasm qo'shildi!</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">photo_library</span> Barcha rasmlar (<span id="gallery-count">0</span> ta)</div>
+        <div id="gallery-grid-admin" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;"></div>
+      </div>
+    </div>
+
+    <!-- ── XAYRIYA ── -->
+    <div class="panel" id="panel-charity">
+      <div class="top-bar">
+        <div><h1>Xayriya ma'lumotlari</h1></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">account_balance</span> Karta va kommunal raqamlar</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Karta raqami (Uzcard / Humo) *</label>
+            <input type="text" id="ch-card" placeholder="8600 xxxx xxxx xxxx" maxlength="19"/>
+          </div>
+          <div class="form-group">
+            <label>Karta egasi</label>
+            <input type="text" id="ch-owner" placeholder="Mirzo Yusuf Jome Masjidi"/>
+          </div>
+          <div class="form-group">
+            <label>Elektr (yuridik hisob)</label>
+            <input type="text" id="ch-elec" placeholder="xxxxxxx"/>
+          </div>
+          <div class="form-group">
+            <label>Suv hisob raqami</label>
+            <input type="text" id="ch-water" placeholder="xxxxxxxxx"/>
+          </div>
+          <div class="form-group">
+            <label>Wi-Fi / Internet</label>
+            <input type="text" id="ch-wifi" placeholder="xxxxxxxxxx"/>
+          </div>
+          <div class="form-group">
+            <label>Gaz hisob raqami (ixtiyoriy)</label>
+            <input type="text" id="ch-gas" placeholder="xxxxxxxxxx"/>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="saveCharity()">
+          <span class="material-symbols-outlined">save</span> Saqlash
+        </button>
+        <div class="msg msg-success" id="charity-msg-ok"><span class="material-symbols-outlined">check_circle</span> Saqlandi!</div>
+      </div>
+    </div>
+
+    <!-- ── OBUNALAR ── -->
+    <div class="panel" id="panel-subscriptions">
+      <div class="top-bar">
+        <div><h1>Diniy matbuot obunalar</h1></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">list</span> Barcha obuna arizalar</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ism</th><th>Telefon</th><th>Nashrlar</th><th>Summa</th><th>Yetkazish</th><th>Sana</th><th>Holat</th><th>Amal</th>
+              </tr>
+            </thead>
+            <tbody id="subs-tbody">
+              <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Yuklanmoqda...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DUO SO'ROVLAR ── -->
+    <div class="panel" id="panel-dua-requests">
+      <div class="top-bar">
+        <div><h1>Duo so'rovlar</h1></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">list</span> Barcha duo so'rovlar</div>
+        <div class="item-list" id="dua-list"><p style="color:var(--muted);font-size:0.82rem;">Yuklanmoqda...</p></div>
+      </div>
+    </div>
+
+    <!-- ── TELEGRAM BOT SOZLAMALARI ── -->
+    <div class="panel" id="panel-bot-settings">
+      <div class="top-bar">
+        <div><h1>Telegram Bot sozlamalari</h1><p>Mirzo Yusuf masjidi uchun alohida bot</p></div>
+      </div>
+
+      <div class="bot-card">
+        <h3 style="color:var(--gold);font-size:0.9rem;margin-bottom:8px;">📋 Bot yaratish yo'riqnomasi</h3>
+        <ol style="font-size:0.8rem;color:var(--muted);line-height:1.8;padding-left:18px;">
+          <li>Telegramda <strong style="color:var(--text);">@BotFather</strong> ga yozing</li>
+          <li><strong style="color:var(--text);">/newbot</strong> buyrug'ini yuboring</li>
+          <li>Bot nomini kiriting: <strong style="color:var(--text);">Mirzo Yusuf Masjidi</strong></li>
+          <li>Username kiriting: <strong style="color:var(--text);">mirzo_yusuf_bot</strong></li>
+          <li>BotFather sizga token yuboradi — quyiga kiriting</li>
+          <li>Admin chat IDlarini aniqlash uchun <strong style="color:var(--text);">@userinfobot</strong> ga yozing</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="material-symbols-outlined">smart_toy</span> Bot konfiguratsiyasi</div>
+
+        <div class="bot-status" style="margin-bottom:16px;" id="bot-cfg-status">
+          <div class="bot-dot" id="cfg-bot-dot"></div>
+          <span id="cfg-bot-text">Bot holati tekshirilmoqda...</span>
+        </div>
+
+        <div class="form-grid cols-1">
+          <div class="form-group">
+            <label>Bot Token (BotFather dan) *</label>
+            <input type="text" id="bot-token-input" placeholder="123456789:AAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" autocomplete="off"/>
+          </div>
+          <div class="form-group">
+            <label>Admin 1 — Telegram Chat ID *</label>
+            <input type="text" id="admin-id-1" placeholder="123456789"/>
+          </div>
+          <div class="form-group">
+            <label>Admin 2 — Chat ID (ixtiyoriy)</label>
+            <input type="text" id="admin-id-2" placeholder=""/>
+          </div>
+          <div class="form-group">
+            <label>Admin 3 — Chat ID (ixtiyoriy)</label>
+            <input type="text" id="admin-id-3" placeholder=""/>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="saveBotConfig()">
+            <span class="material-symbols-outlined">save</span> Saqlash
+          </button>
+          <button class="btn btn-ghost" onclick="testBotConnection()">
+            <span class="material-symbols-outlined">wifi_tethering</span> Test xabari yuborish
+          </button>
+        </div>
+        <div class="msg msg-success" id="bot-msg-ok"><span class="material-symbols-outlined">check_circle</span> Bot konfiguratsiyasi saqlandi!</div>
+        <div class="msg msg-error" id="bot-msg-err"><span class="material-symbols-outlined">error</span> <span id="bot-msg-err-text">Xatolik yuz berdi.</span></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
+<script>
+'use strict';
+
+// ──── PAROL ────
+const ADMIN_PASSWORDS = ['masjid2026', 'admin123'];
+
+function doLogin() {
+  const pwd = document.getElementById('login-password').value;
+  if (ADMIN_PASSWORDS.includes(pwd)) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-layout').style.display = 'flex';
+    sessionStorage.setItem('my_admin_auth', '1');
+    initAdmin();
+  } else {
+    document.getElementById('login-error').classList.add('show');
+    setTimeout(() => document.getElementById('login-error').classList.remove('show'), 3000);
+  }
+}
+document.getElementById('login-password')?.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+function doLogout() {
+  sessionStorage.removeItem('my_admin_auth');
+  location.reload();
+}
+
+// Auto-login agar sessiyada saqlanib qolsa
+if (sessionStorage.getItem('my_admin_auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-layout').style.display = 'flex';
+  initAdmin();
+}
+
+// ──── PANEL SWITCHING ────
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name)?.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event?.currentTarget?.classList.add('active');
+}
+
+// ──── FIREBASE ────
+let db = null;
+
+function initFirebase() {
+  try {
+    if (typeof firebase === 'undefined') return setTimeout(initFirebase, 150);
+    const cfg = (typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey && !firebaseConfig.apiKey.includes('YOUR'))
+      ? firebaseConfig : null;
+    if (!cfg) {
+      console.warn('Firebase sozlanmagan — firebase-config.js ni to\'ldiring');
+      return;
+    }
+    if (!firebase.apps.length) firebase.initializeApp(cfg);
+    db = firebase.database();
+    console.log('✅ Firebase ulandi');
+    loadAllData();
+  } catch(e) { console.warn('Firebase xatosi:', e); }
+}
+
+// ──── DATETIME TICKER ────
+function updateDatetime() {
+  const el = document.getElementById('dash-datetime');
+  if (!el) return;
+  const now = new Date();
+  el.textContent = now.toLocaleString('uz-UZ', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+setInterval(updateDatetime, 1000);
+updateDatetime();
+
+// ──── LOAD ALL DATA ────
+function loadAllData() {
+  if (!db) return;
+  loadStats();
+  loadPrayerTimes();
+  loadNews();
+  loadTeam();
+  loadSponsors();
+  loadGalleryAdmin();
+  loadCharity();
+  loadSubscriptions();
+  loadDuaRequests();
+  loadBotConfig();
+  checkBotStatus();
+}
+
+// ──── STATISTICS ────
+function loadStats() {
+  const today = new Date().toISOString().split('T')[0];
+  db.ref('statistics').once('value', snap => {
+    const d = snap.val() || {};
+    document.getElementById('stat-visits').textContent = (d.total_visits || 0).toLocaleString();
+    const todayCount = d.daily_visits?.[today] || 0;
+    document.getElementById('stat-today').textContent = todayCount;
+  });
+  db.ref('news').once('value', s => document.getElementById('stat-news').textContent = s.numChildren() || 0);
+  db.ref('team').once('value', s => document.getElementById('stat-team').textContent = s.numChildren() || 0);
+  db.ref('dua_requests').once('value', s => document.getElementById('stat-dua').textContent = s.numChildren() || 0);
+  db.ref('subscriptions').once('value', s => document.getElementById('stat-subs').textContent = s.numChildren() || 0);
+}
+
+// ──── PRAYER TIMES ────
+function loadPrayerTimes() {
+  if (!db) return;
+  db.ref('prayer_times').on('value', snap => {
+    const d = snap.val() || {};
+    const keys = ['bomdod','quyosh','peshin','asr','shom','xufton'];
+    keys.forEach(k => {
+      const el = document.getElementById('p-' + k);
+      if (el && d[k]) el.value = d[k];
+      const dp = document.getElementById('dp-' + k);
+      if (dp && d[k]) dp.textContent = d[k];
+    });
+  });
+}
+
+function savePrayerTimes() {
+  if (!db) { showMsg('prayer-msg-err', true); return; }
+  const keys = ['bomdod','quyosh','peshin','asr','shom','xufton'];
+  const data = {};
+  keys.forEach(k => {
+    const v = document.getElementById('p-' + k)?.value;
+    if (v) data[k] = v;
+  });
+  data.updated_at = new Date().toISOString().replace('T',' ').substring(0,16);
+  db.ref('prayer_times').update(data)
+    .then(() => showMsg('prayer-msg-ok'))
+    .catch(() => showMsg('prayer-msg-err', true));
+}
+
+// ──── NEWS ────
+let newsList = [];
+function loadNews() {
+  if (!db) return;
+  db.ref('news').on('value', snap => {
+    newsList = [];
+    snap.forEach(c => newsList.unshift({ id: c.key, ...c.val() }));
+    renderNewsList();
+    document.getElementById('stat-news').textContent = newsList.length;
+  });
+}
+
+function renderNewsList() {
+  const el = document.getElementById('news-list');
+  if (!el) return;
+  if (!newsList.length) { el.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;">Hozircha yangiliklar yo\'q.</p>'; return; }
+  el.innerHTML = newsList.map(n => `
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">${n.title || 'Sarlavsiz'}</div>
+        <div class="item-meta">${n.date || ''} — ${(n.desc || n.content || '').substring(0,80)}...</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-danger btn-sm" onclick="deleteItem('news','${n.id}')">
+          <span class="material-symbols-outlined">delete</span>
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+function addNews() {
+  if (!db) return;
+  const title = document.getElementById('news-title').value.trim();
+  const content = document.getElementById('news-content').value.trim();
+  if (!title || !content) return;
+  const date = document.getElementById('news-date').value || new Date().toISOString().split('T')[0];
+  const imgUrl = document.getElementById('news-img').value.trim();
+  db.ref('news').push({ title, desc: content, content, date, imgUrl: imgUrl || null, created_at: Date.now() })
+    .then(() => {
+      showMsg('news-msg-ok');
+      document.getElementById('news-title').value = '';
+      document.getElementById('news-content').value = '';
+      document.getElementById('news-img').value = '';
+    });
+}
+
+// ──── TEAM ────
+let teamList = [];
+function loadTeam() {
+  if (!db) return;
+  db.ref('team').on('value', snap => {
+    teamList = [];
+    snap.forEach(c => teamList.push({ id: c.key, ...c.val() }));
+    renderTeamList();
+    document.getElementById('stat-team').textContent = teamList.length;
+  });
+}
+
+function renderTeamList() {
+  const el = document.getElementById('team-list');
+  if (!el) return;
+  if (!teamList.length) { el.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;">Jamoa a\'zolari yo\'q.</p>'; return; }
+  el.innerHTML = teamList.map(m => `
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">${m.name || ''} <span class="badge badge-gold">${m.role || ''}</span></div>
+        <div class="item-meta">${m.phone || ''} ${m.tg ? '| @' + m.tg : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-danger btn-sm" onclick="deleteItem('team','${m.id}')">
+          <span class="material-symbols-outlined">delete</span>
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+function addTeamMember() {
+  if (!db) return;
+  const name = document.getElementById('team-name').value.trim();
+  const role = document.getElementById('team-role').value.trim();
+  if (!name || !role) return;
+  db.ref('team').push({
+    name, role,
+    phone: document.getElementById('team-phone').value.trim(),
+    tg: document.getElementById('team-tg').value.trim().replace('@',''),
+    imgUrl: document.getElementById('team-img').value.trim() || null,
+    desc: document.getElementById('team-desc').value.trim()
+  }).then(() => {
+    showMsg('team-msg-ok');
+    ['team-name','team-role','team-phone','team-tg','team-img','team-desc'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  });
+}
+
+// ──── SPONSORS ────
+let sponsorsList = [];
+function loadSponsors() {
+  if (!db) return;
+  db.ref('sponsors').on('value', snap => {
+    sponsorsList = [];
+    snap.forEach(c => sponsorsList.unshift({ id: c.key, ...c.val() }));
+    renderSponsorsList();
+  });
+}
+
+function renderSponsorsList() {
+  const el = document.getElementById('sponsors-list');
+  if (!el) return;
+  if (!sponsorsList.length) { el.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;">Faxriylar yo\'q.</p>'; return; }
+  el.innerHTML = sponsorsList.map(s => `
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">${s.name || ''}</div>
+        <div class="item-meta">${(s.desc || '').substring(0,90)}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-danger btn-sm" onclick="deleteItem('sponsors','${s.id}')">
+          <span class="material-symbols-outlined">delete</span>
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+function addSponsor() {
+  if (!db) return;
+  const name = document.getElementById('sponsor-name').value.trim();
+  if (!name) return;
+  db.ref('sponsors').push({
+    name,
+    desc: document.getElementById('sponsor-desc').value.trim(),
+    imgUrl: document.getElementById('sponsor-img').value.trim() || null
+  }).then(() => {
+    showMsg('sponsor-msg-ok');
+    ['sponsor-name','sponsor-desc','sponsor-img'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  });
+}
+
+// ──── GALLERY ────
+let galleryList = [];
+function loadGalleryAdmin() {
+  if (!db) return;
+  db.ref('gallery').on('value', snap => {
+    galleryList = [];
+    snap.forEach(c => galleryList.unshift({ id: c.key, ...c.val() }));
+    renderGalleryAdmin();
+    document.getElementById('gallery-count').textContent = galleryList.length;
+  });
+}
+
+function renderGalleryAdmin() {
+  const el = document.getElementById('gallery-grid-admin');
+  if (!el) return;
+  el.innerHTML = galleryList.map(img => {
+    const url = img.url || img.imgUrl || '';
+    return `<div style="position:relative;">
+      <img src="${url}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1px solid var(--card-border);" loading="lazy" onerror="this.style.display='none'"/>
+      <button onclick="deleteItem('gallery','${img.id}')" style="position:absolute;top:4px;right:4px;background:rgba(239,68,68,0.9);border:none;color:white;border-radius:6px;padding:3px 6px;cursor:pointer;font-size:12px;">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function addGalleryItem() {
+  if (!db) return;
+  const url = document.getElementById('gallery-url').value.trim();
+  if (!url) return;
+  db.ref('gallery').push({
+    url,
+    caption: document.getElementById('gallery-caption').value.trim() || null,
+    added_at: Date.now()
+  }).then(() => {
+    showMsg('gallery-msg-ok');
+    document.getElementById('gallery-url').value = '';
+    document.getElementById('gallery-caption').value = '';
+  });
+}
+
+// ──── CHARITY ────
+function loadCharity() {
+  if (!db) return;
+  db.ref('charity_info').once('value', snap => {
+    const d = snap.val() || {};
+    if (d.general_card) document.getElementById('ch-card').value = d.general_card;
+    if (d.general_owner) document.getElementById('ch-owner').value = d.general_owner;
+    if (d.util_elec) document.getElementById('ch-elec').value = d.util_elec;
+    if (d.util_water) document.getElementById('ch-water').value = d.util_water;
+    if (d.util_wifi) document.getElementById('ch-wifi').value = d.util_wifi;
+    if (d.util_gas) document.getElementById('ch-gas').value = d.util_gas;
+  });
+}
+
+function saveCharity() {
+  if (!db) return;
+  const data = {
+    general_card: document.getElementById('ch-card').value.trim(),
+    general_owner: document.getElementById('ch-owner').value.trim() || 'Mirzo Yusuf Jome Masjidi',
+    util_elec: document.getElementById('ch-elec').value.trim(),
+    util_water: document.getElementById('ch-water').value.trim(),
+    util_wifi: document.getElementById('ch-wifi').value.trim(),
+    util_gas: document.getElementById('ch-gas').value.trim() || null
+  };
+  db.ref('charity_info').set(data)
+    .then(() => showMsg('charity-msg-ok'))
+    .catch(() => {});
+}
+
+// ──── SUBSCRIPTIONS ────
+let subsList = [];
+function loadSubscriptions() {
+  if (!db) return;
+  db.ref('subscriptions').on('value', snap => {
+    subsList = [];
+    snap.forEach(c => subsList.unshift({ id: c.key, ...c.val() }));
+    renderSubsTable();
+    document.getElementById('stat-subs').textContent = subsList.length;
+  });
+}
+
+function renderSubsTable() {
+  const tbody = document.getElementById('subs-tbody');
+  if (!tbody) return;
+  if (!subsList.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Hozircha obuna arizalar yo\'q.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = subsList.map(s => `
+    <tr>
+      <td>${s.name || '—'}</td>
+      <td><a href="tel:${s.phone}" style="color:var(--gold);">${s.phone || '—'}</a></td>
+      <td>${(s.publications || []).join(', ')}</td>
+      <td>${(s.total_price || 0).toLocaleString()} so'm</td>
+      <td>${s.delivery_method || '—'}</td>
+      <td>${s.created_at ? s.created_at.split('T')[0] : '—'}</td>
+      <td>
+        <span class="badge ${s.status === 'approved' ? 'badge-green' : s.status === 'rejected' ? 'badge-red' : 'badge-gold'}">
+          ${s.status === 'approved' ? 'Tasdiqlangan' : s.status === 'rejected' ? 'Rad etilgan' : 'Kutilmoqda'}
+        </span>
+      </td>
+      <td style="display:flex;gap:6px;">
+        <button class="btn btn-ghost btn-sm" onclick="updateSubStatus('${s.id}','approved')">✅</button>
+        <button class="btn btn-danger btn-sm" onclick="updateSubStatus('${s.id}','rejected')">❌</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteItem('subscriptions','${s.id}')"><span class="material-symbols-outlined" style="font-size:14px;">delete</span></button>
+      </td>
+    </tr>`).join('');
+}
+
+function updateSubStatus(id, status) {
+  if (!db) return;
+  db.ref('subscriptions/' + id).update({ status });
+}
+
+// ──── DUA REQUESTS ────
+let duaList = [];
+function loadDuaRequests() {
+  if (!db) return;
+  db.ref('dua_requests').on('value', snap => {
+    duaList = [];
+    snap.forEach(c => duaList.unshift({ id: c.key, ...c.val() }));
+    renderDuaList();
+    document.getElementById('stat-dua').textContent = duaList.length;
+  });
+}
+
+function renderDuaList() {
+  const el = document.getElementById('dua-list');
+  if (!el) return;
+  if (!duaList.length) { el.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;">Hozircha duo so\'rovlar yo\'q.</p>'; return; }
+  el.innerHTML = duaList.map(d => `
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">${d.name || 'Yashirin'}</div>
+        <div class="item-meta" style="margin-top:4px;">${d.message || ''}</div>
+        <div class="item-meta" style="margin-top:4px;font-size:0.68rem;">${d.timestamp ? new Date(d.timestamp).toLocaleString() : ''}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-danger btn-sm" onclick="deleteItem('dua_requests','${d.id}')">
+          <span class="material-symbols-outlined">delete</span>
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+// ──── BOT CONFIG (localStorage + Firebase) ────
+function loadBotConfig() {
+  const token = localStorage.getItem('my_bot_token') || '';
+  const id1 = localStorage.getItem('my_admin_id_1') || '';
+  const id2 = localStorage.getItem('my_admin_id_2') || '';
+  const id3 = localStorage.getItem('my_admin_id_3') || '';
+  if (token) document.getElementById('bot-token-input').value = token;
+  if (id1) document.getElementById('admin-id-1').value = id1;
+  if (id2) document.getElementById('admin-id-2').value = id2;
+  if (id3) document.getElementById('admin-id-3').value = id3;
+  applyBotToApp(token, [id1, id2, id3].filter(Boolean));
+}
+
+function saveBotConfig() {
+  const token = document.getElementById('bot-token-input').value.trim();
+  const id1 = document.getElementById('admin-id-1').value.trim();
+  const id2 = document.getElementById('admin-id-2').value.trim();
+  const id3 = document.getElementById('admin-id-3').value.trim();
+  if (!token || !id1) {
+    document.getElementById('bot-msg-err-text').textContent = 'Bot token va kamida 1 admin ID talab qilinadi!';
+    showMsg('bot-msg-err', true);
+    return;
+  }
+  localStorage.setItem('my_bot_token', token);
+  localStorage.setItem('my_admin_id_1', id1);
+  localStorage.setItem('my_admin_id_2', id2);
+  localStorage.setItem('my_admin_id_3', id3);
+  applyBotToApp(token, [id1, id2, id3].filter(Boolean));
+  showMsg('bot-msg-ok');
+  checkBotStatus();
+}
+
+function applyBotToApp(token, ids) {
+  window.MIRZO_YUSUF_BOT_TOKEN = token;
+  window.MIRZO_YUSUF_ADMIN_IDS = ids;
+}
+
+async function checkBotStatus() {
+  const token = localStorage.getItem('my_bot_token') || '';
+  const dot = document.getElementById('bot-dot');
+  const text = document.getElementById('bot-status-text');
+  const cfgDot = document.getElementById('cfg-bot-dot');
+  const cfgText = document.getElementById('cfg-bot-text');
+  if (!token) {
+    if (dot) { dot.className = 'bot-dot'; dot.style.background = '#ef4444'; }
+    if (text) text.textContent = 'Bot sozlanmagan — token yo\'q';
+    if (cfgDot) { cfgDot.className = 'bot-dot'; cfgDot.style.background = '#ef4444'; }
+    if (cfgText) cfgText.textContent = 'Token kiritilmagan';
+    return;
+  }
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/getMe`);
+    const json = await res.json();
+    if (json.ok) {
+      const name = json.result?.username || '';
+      if (dot) { dot.className = 'bot-dot active'; }
+      if (text) text.textContent = `✅ Bot ulangan: @${name}`;
+      if (cfgDot) { cfgDot.className = 'bot-dot active'; }
+      if (cfgText) cfgText.textContent = `Faol: @${name}`;
+    } else {
+      if (dot) { dot.className = 'bot-dot'; dot.style.background = '#f59e0b'; }
+      if (text) text.textContent = 'Token noto\'g\'ri';
+      if (cfgDot) { cfgDot.className = 'bot-dot'; cfgDot.style.background = '#f59e0b'; }
+      if (cfgText) cfgText.textContent = 'Token noto\'g\'ri yoki eskirgan';
+    }
+  } catch(e) {
+    if (text) text.textContent = 'Internet xatosi';
+  }
+}
+
+async function testBotConnection() {
+  const token = document.getElementById('bot-token-input').value.trim();
+  const id1 = document.getElementById('admin-id-1').value.trim();
+  if (!token || !id1) {
+    document.getElementById('bot-msg-err-text').textContent = 'Avval token va admin ID ni kiriting!';
+    showMsg('bot-msg-err', true);
+    return;
+  }
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ chat_id: id1, text: '✅ Mirzo Yusuf Masjidi — Bot muvaffaqiyatli ulandi! Test xabari.' })
+    });
+    const json = await res.json();
+    if (json.ok) {
+      showMsg('bot-msg-ok');
+    } else {
+      document.getElementById('bot-msg-err-text').textContent = json.description || 'Xatolik';
+      showMsg('bot-msg-err', true);
+    }
+  } catch(e) {
+    document.getElementById('bot-msg-err-text').textContent = 'Ulanish xatosi: ' + e.message;
+    showMsg('bot-msg-err', true);
+  }
+}
+
+// ──── DELETE ITEM ────
+function deleteItem(ref, id) {
+  if (!db) return;
+  if (!confirm('Bu elementni o\'chirishni tasdiqlaysizmi?')) return;
+  db.ref(ref + '/' + id).remove();
+}
+
+// ──── SHOW MESSAGE HELPER ────
+function showMsg(id, isError = false) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// ──── INIT ────
+function initAdmin() {
+  initFirebase();
+  document.getElementById('news-date').value = new Date().toISOString().split('T')[0];
+}
+</script>
+</body>
+</html>

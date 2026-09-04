@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html class="light" lang="uz-Cyrl">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MIRZO YUSUF Jome Masjidi | Rasmiy Veb-sayt</title>
+<meta name="description" content="Mirzo Yusuf (Bodomzor) jome masjidi — Toshkent shahri, Yunusobod tumani. Eng so'nggi namoz vaqtlari, yangiliklar va masjid faoliyati haqida rasmiy ma'lumotlar."/>
+<link rel="icon" href="assets/images/logo.jpg" type="image/jpeg"/>
+<link rel="canonical" href="https://mirzoyusuf.uz/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://mirzoyusuf.uz/"/>
+<meta property="og:title" content="Mirzo Yusuf Jome Masjidi | Rasmiy Veb-sayt"/>
+<meta property="og:image" content="assets/images/hero.jpg"/>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Caslon+Text:wght@400;600;700&family=Hanken+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-tertiary-fixed": "#2f1500",
+          "outline-variant": "#bfc9c3",
+          "secondary-fixed-dim": "#ffb68e",
+          "on-primary": "#ffffff",
+          "slate-gray": "#334155",
+          "on-surface": "#1b1c1a",
+          "sand-cream": "#FDFCF8",
+          "primary-fixed-dim": "#95d3ba",
+          "surface-container-lowest": "#ffffff",
+          "secondary-container": "#fd8a42",
+          "surface-container-high": "#e9e8e4",
+          "tertiary-fixed-dim": "#ffb77d",
+          "secondary": "#9b4500",
+          "tertiary-fixed": "#ffdcc3",
+          "on-tertiary-fixed-variant": "#6e3900",
+          "surface-dim": "#dbdad6",
+          "on-error": "#ffffff",
+          "on-secondary-fixed": "#331200",
+          "emerald-light": "#065F46",
+          "on-error-container": "#93000a",
+          "tertiary-container": "#6a3700",
+          "surface-container-low": "#f4f4f0",
+          "on-tertiary-container": "#ff9939",
+          "on-secondary": "#ffffff",
+          "on-tertiary": "#ffffff",
+          "surface-tint": "#2b6954",
+          "primary": "#003527",
+          "surface-variant": "#e3e2df",
+          "on-primary-fixed-variant": "#0b513d",
+          "surface-bright": "#faf9f5",
+          "primary-fixed": "#b0f0d6",
+          "outline": "#707974",
+          "error": "#ba1a1a",
+          "gold-metallic": "#B45309",
+          "background": "#faf9f5",
+          "on-primary-container": "#80bea6",
+          "on-secondary-container": "#682c00",
+          "surface": "#faf9f5",
+          "emerald-deep": "#064E3B",
+          "surface-container-highest": "#e3e2df",
+          "on-secondary-fixed-variant": "#763300",
+          "error-container": "#ffdad6",
+          "tertiary": "#4a2400",
+          "on-primary-fixed": "#002117",
+          "secondary-fixed": "#ffdbca",
+          "inverse-primary": "#95d3ba",
+          "primary-container": "#064e3b",
+          "gold-shimmer": "#F59E0B",
+          "on-surface-variant": "#404944",
+          "inverse-on-surface": "#f2f1ed",
+          "inverse-surface": "#2f312e",
+          "on-background": "#1b1c1a",
+          "surface-container": "#efeeea"
+        },
+        borderRadius: {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        spacing: {
+          "prayer-row-padding": "12px 20px",
+          "margin-desktop": "48px",
+          "stack-sm": "8px",
+          "gutter": "24px",
+          "container-max": "1280px",
+          "stack-md": "16px",
+          "stack-lg": "32px",
+          "margin-mobile": "16px"
+        },
+        fontFamily: {
+          "headline-lg-mobile": ["Libre Caslon Text", "serif"],
+          "headline-lg": ["Libre Caslon Text", "serif"],
+          "prayer-time-display": ["Inter", "sans-serif"],
+          "body-lg": ["Inter", "sans-serif"],
+          "body-md": ["Inter", "sans-serif"],
+          "label-caps": ["Hanken Grotesk", "sans-serif"],
+          "headline-md": ["Libre Caslon Text", "serif"]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; font-size: 16px; }
+  html.font-scale-lg { font-size: 18px; }
+  html.font-scale-xl { font-size: 20px; }
+  body { background-color: #faf9f5; color: #1b1c1a; padding-bottom: 84px; }
+  @media (min-width: 768px) { body { padding-bottom: 32px; } }
+  .font-headline-md { font-family: 'Libre Caslon Text', serif; }
+  .font-body-md { font-family: 'Inter', sans-serif; }
+  .font-label-caps { font-family: 'Hanken Grotesk', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+  .font-prayer-time-display { font-family: 'Inter', sans-serif; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .dark body { background-color: #121413; color: #e5e3dc; }
+  .dark .bg-surface { background-color: #121413 !important; }
+  .dark .bg-surface-container-lowest { background-color: #1d201e !important; }
+  .dark .bg-surface-container { background-color: #181a19 !important; }
+  .dark .bg-surface-container-low { background-color: #242725 !important; }
+  .dark .bg-surface-container-high { background-color: #2b2e2c !important; }
+  .dark .text-on-surface { color: #e5e3dc !important; }
+  .dark .text-on-surface-variant { color: #a4aca6 !important; }
+  .dark .text-primary { color: #95d3ba !important; }
+  .dark .border-surface-container-high { border-color: #2d312e !important; }
+  .dark .border-surface-variant { border-color: #2d312e !important; }
+  .nav-link.active { color: #003527; background-color: #efeeea; font-weight: 700; }
+  .dark .nav-link.active { color: #95d3ba; background-color: #1d201e; }
+  @media print {
+    @page { size: A4 portrait; margin: 6mm 6mm 6mm 6mm; }
+    html, body { background: #fff !important; color: #000 !important; padding: 0 !important; margin: 0 !important; }
+    body * { visibility: hidden !important; }
+    #monthly-calendar-modal, #monthly-calendar-modal * { visibility: visible !important; }
+    #monthly-calendar-modal { position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; background: #fff !important; display: block !important; }
+    nav, header, footer, #bottom-nav { display: none !important; }
+  }
+</style>
+</head>
+<body class="antialiased min-h-screen relative flex flex-col items-center w-full selection:bg-gold-shimmer selection:text-white transition-colors duration-200">
+
+<!-- Desktop Sticky Header -->
+<header class="hidden md:flex sticky top-0 z-40 w-full bg-surface/90 backdrop-blur-md border-b border-outline-variant shadow-sm px-margin-desktop py-3">
+  <div class="max-w-container-max mx-auto w-full flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full overflow-hidden bg-emerald-deep flex items-center justify-center shadow-sm">
+        <img src="assets/images/logo.jpg" alt="Mirzo Yusuf Masjidi" class="w-full h-full object-cover"/>
+      </div>
+      <div>
+        <div class="font-label-caps text-primary text-[10px] tracking-wider" data-i18n="hero_title_inline">MIRZO YUSUF</div>
+        <div class="font-headline-md text-lg text-on-surface font-bold leading-tight" data-i18n="site_subheading">Jome Masjidi</div>
+      </div>
+    </a>
+
+    <nav class="flex items-center gap-1">
+      <a href="#home" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_home">Bosh sahifa</a>
+      <a href="#prayers" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_prayers">Namoz</a>
+      <a href="#news" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_news">Yangiliklar</a>
+      <a href="#team" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_team">Jamoa</a>
+      <a href="#sponsors" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_sponsors">Faxriylar</a>
+      <a href="#charity" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_charity">Xayriya</a>
+      <a href="#subscription" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_subscription">Obuna</a>
+      <a href="#gallery" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_gallery">Galereya</a>
+      <a href="#dua" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_dua">Duo</a>
+      <a href="#contact" class="nav-link px-3 py-1.5 rounded-lg font-label-caps text-[11px] text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors" data-i18n="nav_contact">Aloqa</a>
+    </nav>
+
+    <div class="flex items-center gap-2.5">
+      <!-- Desktop Custom Font Sizer Dropdown -->
+      <div class="relative custom-font-dropdown">
+        <button type="button" onclick="window.toggleFontMenu(this, event)" class="font-dropdown-trigger flex items-center gap-1.5 bg-surface-container hover:bg-surface-container-high border border-surface-variant px-2.5 py-1.5 rounded-xl text-xs font-semibold text-on-surface transition-colors shadow-sm cursor-pointer" title="Matn hajmi">
+          <span class="material-symbols-outlined text-[16px] text-gold-shimmer">format_size</span>
+          <span class="font-current-label text-xs font-bold">100%</span>
+          <span class="material-symbols-outlined text-[15px] opacity-70">expand_more</span>
+        </button>
+        <div class="font-menu absolute right-0 top-full mt-2 w-48 bg-surface-container-lowest/95 dark:bg-[#1d201e]/95 backdrop-blur-2xl border border-surface-container-high shadow-2xl rounded-2xl p-1.5 hidden z-50">
+          <button data-size="norm" onclick="window.setFontSize('norm')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left font-opt-norm cursor-pointer">
+            <span data-i18n="font_norm">Odatiy (100%)</span>
+            <span class="material-symbols-outlined text-[16px] text-emerald-deep font-check hidden">check</span>
+          </button>
+          <button data-size="lg" onclick="window.setFontSize('lg')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left font-opt-lg cursor-pointer">
+            <span data-i18n="font_lg">Katta (115%)</span>
+            <span class="material-symbols-outlined text-[16px] text-emerald-deep font-check hidden">check</span>
+          </button>
+          <button data-size="xl" onclick="window.setFontSize('xl')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left font-opt-xl cursor-pointer">
+            <span data-i18n="font_xl">Juda katta (130%)</span>
+            <span class="material-symbols-outlined text-[16px] text-emerald-deep font-check hidden">check</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Desktop Custom Language Dropdown -->
+      <div class="relative custom-lang-dropdown">
+        <button type="button" onclick="window.toggleLangMenu(this, event)" class="lang-dropdown-trigger flex items-center gap-1.5 bg-surface-container hover:bg-surface-container-high border border-surface-variant px-3 py-1.5 rounded-xl text-xs font-semibold text-on-surface transition-colors shadow-sm cursor-pointer">
+          <span class="lang-current-flag text-sm">🇺🇿</span>
+          <span class="lang-current-name font-medium">O'zbekcha</span>
+          <span class="material-symbols-outlined text-[16px] opacity-70">expand_more</span>
+        </button>
+        <div class="lang-menu absolute right-0 top-full mt-2 w-48 bg-surface-container-lowest/95 dark:bg-[#1d201e]/95 backdrop-blur-2xl border border-surface-container-high shadow-2xl rounded-2xl p-1.5 hidden z-50">
+          <button data-lang="uz_lt" onclick="window.changeLanguage('uz_lt')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+            <span class="flex items-center gap-2"><span>🇺🇿</span><span>O'zbekcha (Lotin)</span></span>
+            <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+          </button>
+          <button data-lang="uz_cy" onclick="window.changeLanguage('uz_cy')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+            <span class="flex items-center gap-2"><span>🇺🇿</span><span>O'zbekcha (Kirill)</span></span>
+            <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+          </button>
+          <button data-lang="ru" onclick="window.changeLanguage('ru')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+            <span class="flex items-center gap-2"><span>🇷🇺</span><span>Русский</span></span>
+            <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+          </button>
+          <button data-lang="en" onclick="window.changeLanguage('en')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+            <span class="flex items-center gap-2"><span>🇺🇸</span><span>English</span></span>
+            <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Theme toggle -->
+      <button id="theme-toggle-desktop" class="w-9 h-9 rounded-full border-2 border-gold-metallic/70 flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors shadow-sm cursor-pointer" title="Tungi / Kunduzgi rejim">
+        <span class="material-symbols-outlined text-[18px] text-gold-shimmer" id="theme-icon-desktop">light_mode</span>
+      </button>
+
+      <!-- Donate Button -->
+      <a href="#charity" class="bg-emerald-deep hover:opacity-90 text-white font-label-caps text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition-colors shadow-sm font-bold cursor-pointer">
+        <span class="material-symbols-outlined text-[16px]">volunteer_activism</span>
+        <span data-i18n="nav_donate">Ehson</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Minimal Header -->
+<header class="md:hidden w-full bg-surface/90 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-outline-variant px-margin-mobile py-2.5 flex justify-between items-center">
+  <a href="#" class="flex items-center gap-2">
+    <div class="w-9 h-9 rounded-full overflow-hidden bg-emerald-deep flex items-center justify-center shadow-sm flex-shrink-0">
+      <img src="assets/images/logo.jpg" alt="Logo" class="w-full h-full object-cover"/>
+    </div>
+    <h1 class="font-headline-md text-[17px] font-bold text-primary leading-tight" data-i18n="hero_title_inline">Mirzo Yusuf</h1>
+  </a>
+  
+  <div class="flex items-center gap-2">
+    <!-- Mobile Font Size Dropdown -->
+    <div class="relative custom-font-dropdown">
+      <button type="button" onclick="window.toggleFontMenu(this, event)" class="font-dropdown-trigger flex items-center gap-1 bg-surface-container border border-surface-variant rounded-xl px-2 py-1.5 text-xs font-bold text-on-surface shadow-sm active:scale-95 transition-transform cursor-pointer" title="Matn hajmi">
+        <span class="material-symbols-outlined text-[15px] text-gold-shimmer">format_size</span>
+        <span class="font-current-label text-[11px]">100%</span>
+        <span class="material-symbols-outlined text-[13px] opacity-70">expand_more</span>
+      </button>
+      <div class="font-menu absolute right-0 top-full mt-2 w-44 bg-surface-container-lowest/95 dark:bg-[#1d201e]/95 backdrop-blur-2xl border border-surface-container-high shadow-2xl rounded-2xl p-1.5 hidden z-50">
+        <button data-size="norm" onclick="window.setFontSize('norm')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left font-opt-norm cursor-pointer">
+          <span data-i18n="font_norm">Odatiy (100%)</span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-deep font-check hidden">check</span>
+        </button>
+        <button data-size="lg" onclick="window.setFontSize('lg')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left font-opt-lg cursor-pointer">
+          <span data-i18n="font_lg">Katta (115%)</span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-deep font-check hidden">check</span>
+        </button>
+        <button data-size="xl" onclick="window.setFontSize('xl')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-on-surface hover:bg-surface-container transition-colors text-left font-opt-xl cursor-pointer">
+          <span data-i18n="font_xl">Juda katta (130%)</span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-deep font-check hidden">check</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Custom Language Dropdown -->
+    <div class="relative custom-lang-dropdown">
+      <button type="button" onclick="window.toggleLangMenu(this, event)" class="lang-dropdown-trigger flex items-center gap-1 bg-surface-container border border-surface-variant rounded-xl px-2.5 py-1.5 text-xs font-bold text-on-surface shadow-sm active:scale-95 transition-transform cursor-pointer">
+        <span class="lang-current-flag text-sm">🇺🇿</span>
+        <span class="lang-current-code text-[11px] uppercase font-bold">O'z</span>
+        <span class="material-symbols-outlined text-[14px] opacity-70">expand_more</span>
+      </button>
+      <div class="lang-menu absolute right-0 top-full mt-2 w-52 bg-surface-container-lowest/95 dark:bg-[#1d201e]/95 backdrop-blur-2xl border border-surface-container-high shadow-2xl rounded-2xl p-1.5 hidden z-50">
+        <button data-lang="uz_lt" onclick="window.changeLanguage('uz_lt')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+          <span class="flex items-center gap-2.5"><span class="text-base">🇺🇿</span><span>O'zbekcha (Lotin)</span></span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+        </button>
+        <button data-lang="uz_cy" onclick="window.changeLanguage('uz_cy')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+          <span class="flex items-center gap-2.5"><span class="text-base">🇺🇿</span><span>O'zbekcha (Kirill)</span></span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+        </button>
+        <button data-lang="ru" onclick="window.changeLanguage('ru')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+          <span class="flex items-center gap-2.5"><span class="text-base">🇷🇺</span><span>Русский</span></span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+        </button>
+        <button data-lang="en" onclick="window.changeLanguage('en')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-on-surface hover:bg-surface-container transition-colors text-left cursor-pointer">
+          <span class="flex items-center gap-2.5"><span class="text-base">🇺🇸</span><span>English</span></span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-deep check-icon hidden">check</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Theme toggle for mobile -->
+    <button id="theme-toggle" class="w-8 h-8 rounded-full border border-gold-metallic/60 flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors cursor-pointer" title="Tungi / Kunduzgi rejim">
+      <span class="material-symbols-outlined text-[17px] text-gold-shimmer" id="theme-icon">light_mode</span>
+    </button>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="w-full max-w-container-max flex-grow flex flex-col gap-stack-lg pb-stack-lg px-0 md:px-margin-desktop">
+
+  <!-- Hero Section -->
+  <section id="home" class="w-full relative px-margin-mobile md:px-0 pt-stack-md">
+    <div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-surface-container-high group bg-surface-container">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/5 z-10 pointer-events-none"></div>
+      <img alt="Mirzo Yusuf Bodomzor Masjidi" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" src="assets/images/hero.jpg" onerror="this.src='https://images.unsplash.com/photo-1597200381847-30ec200eeb9a?q=85&fm=jpg&w=1200'"/>
+      <div class="absolute bottom-2.5 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:bottom-6 md:left-6 md:right-6 z-20 text-white">
+        <span class="bg-primary/80 backdrop-blur-sm text-on-primary font-label-caps text-[9px] sm:text-[10px] px-2.5 py-0.5 sm:py-1 rounded mb-1 sm:mb-2 inline-block shadow-xs" data-i18n="hero_mosque_tag">Jome Masjidi</span>
+        <h2 class="font-headline-lg-mobile text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white drop-shadow-md font-bold leading-tight" data-i18n="hero_title">Xush kelibsiz</h2>
+        <p class="font-body-md text-[10px] sm:text-xs md:text-sm text-surface-container-low mt-0.5 sm:mt-1 drop-shadow-xs" data-i18n="hero_subtitle">Toshkent shahri, Yunusobod tumani, Bog'ishamol ko'chasi</p>
+        
+        <!-- Countdown -->
+        <div class="mt-1.5 sm:mt-2.5 flex items-center gap-1.5 sm:gap-2 flex-wrap bg-black/50 backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-xl inline-flex border border-white/15 shadow-sm">
+          <span class="material-symbols-outlined text-gold-shimmer text-[14px] sm:text-[16px]">alarm</span>
+          <span class="font-label-caps text-[9px] sm:text-[10px] text-white/90" data-i18n="next_prayer_in">Keyingi namozga:</span>
+          <span id="countdown-timer" class="font-prayer-time-display text-xs sm:text-[15px] text-gold-shimmer font-bold tabular-nums">--:--:--</span>
+          <span id="next-prayer-name" class="font-label-caps text-[10px] sm:text-[11px] text-white/80 font-bold"></span>
+        </div>
+        <div class="mt-0.5 sm:mt-1 text-[9px] sm:text-[11px] text-white/75" id="current-date"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prayer Times Widget -->
+  <section id="prayers" class="w-full px-margin-mobile md:px-0">
+    <div class="flex justify-between items-end mb-4">
+      <div>
+        <h2 class="font-headline-md text-headline-md text-primary font-bold" data-i18n="prayers_heading">Namoz Vaqtlari</h2>
+        <span class="text-xs text-on-surface-variant font-medium" data-i18n="masjid_time_label">Masjidda o'qilish vaqti</span>
+      </div>
+      <div class="flex flex-col items-end">
+        <span id="hijri-date" class="font-label-caps text-[11px] text-gold-metallic font-bold"></span>
+        <span class="font-label-caps text-[10px] text-on-surface-variant flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">location_on</span> <span data-i18n="location_name">Toshkent</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="bg-surface-container rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(180,83,9,0.05)] border border-surface-container-high">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-px bg-surface-container-high" id="prayer-grid-container">
+
+        <!-- BOMDOD -->
+        <div class="prayer-cell bg-surface-container-lowest p-3.5 text-center flex flex-col items-center justify-between min-h-[140px] group transition-all" data-prayer="bomdod" id="cell-bomdod">
+          <span class="material-symbols-outlined text-gold-shimmer mb-1 text-[22px]">wb_twilight</span>
+          <div class="font-label-caps text-[11px] text-on-surface-variant font-bold mb-1 prayer-name" data-i18n="bomdod">BOMDOD</div>
+          <div class="w-full bg-surface-container-low rounded-xl p-1.5 mb-1.5 prayer-pill">
+            <div class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider mb-0.5 prayer-pill-label" data-i18n="masjid_time_label">Masjidda</div>
+            <div class="font-prayer-time-display text-[22px] md:text-[24px] font-bold text-primary tabular-nums leading-none prayer-masjid" id="time-bomdod">05:00</div>
+          </div>
+          <div class="w-full flex justify-between items-center px-1 text-[11px] prayer-azon-row">
+            <span class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider prayer-azon-label" data-i18n="api_time_label">Azon</span>
+            <span class="text-[12px] font-bold text-on-surface-variant tabular-nums prayer-api" id="api-bomdod">04:30</span>
+          </div>
+        </div>
+
+        <!-- QUYOSH -->
+        <div class="prayer-cell bg-surface-container-lowest p-3.5 text-center flex flex-col items-center justify-between min-h-[140px] group transition-all" data-prayer="quyosh" id="cell-quyosh">
+          <span class="material-symbols-outlined text-gold-shimmer mb-1 text-[22px]">light_mode</span>
+          <div class="font-label-caps text-[11px] text-on-surface-variant font-bold mb-1 prayer-name" data-i18n="quyosh">QUYOSH</div>
+          <div class="w-full bg-surface-container-low rounded-xl p-1.5 mb-1.5 prayer-pill">
+            <div class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider mb-0.5 prayer-pill-label" data-i18n="sunrise_label">Chiqishi</div>
+            <div class="font-prayer-time-display text-[22px] md:text-[24px] font-bold text-primary tabular-nums leading-none prayer-masjid" id="time-quyosh">06:15</div>
+          </div>
+          <div class="w-full flex justify-between items-center px-1 opacity-0 prayer-azon-row">
+            <span class="text-[9px] uppercase">Azon</span>
+            <span class="text-[12px] font-bold tabular-nums prayer-api" id="api-quyosh">00:00</span>
+          </div>
+        </div>
+
+        <!-- PESHIN -->
+        <div class="prayer-cell bg-surface-container-lowest p-3.5 text-center flex flex-col items-center justify-between min-h-[140px] group transition-all" data-prayer="peshin" id="cell-peshin">
+          <span class="material-symbols-outlined text-gold-shimmer mb-1 text-[22px]">partly_cloudy_day</span>
+          <div class="font-label-caps text-[11px] text-on-surface-variant font-bold mb-1 prayer-name" data-i18n="peshin">PESHIN</div>
+          <div class="w-full bg-surface-container-low rounded-xl p-1.5 mb-1.5 prayer-pill">
+            <div class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider mb-0.5 prayer-pill-label" data-i18n="masjid_time_label">Masjidda</div>
+            <div class="font-prayer-time-display text-[22px] md:text-[24px] font-bold text-primary tabular-nums leading-none prayer-masjid" id="time-peshin">13:15</div>
+          </div>
+          <div class="w-full flex justify-between items-center px-1 text-[11px] prayer-azon-row">
+            <span class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider prayer-azon-label" data-i18n="api_time_label">Azon</span>
+            <span class="text-[12px] font-bold text-on-surface-variant tabular-nums prayer-api" id="api-peshin">13:00</span>
+          </div>
+        </div>
+
+        <!-- ASR -->
+        <div class="prayer-cell bg-surface-container-lowest p-3.5 text-center flex flex-col items-center justify-between min-h-[140px] group transition-all" data-prayer="asr" id="cell-asr">
+          <span class="material-symbols-outlined text-gold-shimmer mb-1 text-[22px]">wb_sunny</span>
+          <div class="font-label-caps text-[11px] text-on-surface-variant font-bold mb-1 prayer-name" data-i18n="asr">ASR</div>
+          <div class="w-full bg-surface-container-low rounded-xl p-1.5 mb-1.5 prayer-pill">
+            <div class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider mb-0.5 prayer-pill-label" data-i18n="masjid_time_label">Masjidda</div>
+            <div class="font-prayer-time-display text-[22px] md:text-[24px] font-bold text-primary tabular-nums leading-none prayer-masjid" id="time-asr">17:30</div>
+          </div>
+          <div class="w-full flex justify-between items-center px-1 text-[11px] prayer-azon-row">
+            <span class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider prayer-azon-label" data-i18n="api_time_label">Azon</span>
+            <span class="text-[12px] font-bold text-on-surface-variant tabular-nums prayer-api" id="api-asr">17:15</span>
+          </div>
+        </div>
+
+        <!-- SHOM -->
+        <div class="prayer-cell bg-surface-container-lowest p-3.5 text-center flex flex-col items-center justify-between min-h-[140px] group transition-all" data-prayer="shom" id="cell-shom">
+          <span class="material-symbols-outlined text-gold-shimmer mb-1 text-[22px]">nights_stay</span>
+          <div class="font-label-caps text-[11px] text-on-surface-variant font-bold mb-1 prayer-name" data-i18n="shom">SHOM</div>
+          <div class="w-full bg-surface-container-low rounded-xl p-1.5 mb-1.5 prayer-pill">
+            <div class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider mb-0.5 prayer-pill-label" data-i18n="masjid_time_label">Masjidda</div>
+            <div class="font-prayer-time-display text-[22px] md:text-[24px] font-bold text-primary tabular-nums leading-none prayer-masjid" id="time-shom">20:15</div>
+          </div>
+          <div class="w-full flex justify-between items-center px-1 text-[11px] prayer-azon-row">
+            <span class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider prayer-azon-label" data-i18n="api_time_label">Azon</span>
+            <span class="text-[12px] font-bold text-on-surface-variant tabular-nums prayer-api" id="api-shom">20:00</span>
+          </div>
+        </div>
+
+        <!-- XUFTON -->
+        <div class="prayer-cell bg-surface-container-lowest p-3.5 text-center flex flex-col items-center justify-between min-h-[140px] group transition-all" data-prayer="xufton" id="cell-xufton">
+          <span class="material-symbols-outlined text-gold-shimmer mb-1 text-[22px]">dark_mode</span>
+          <div class="font-label-caps text-[11px] text-on-surface-variant font-bold mb-1 prayer-name" data-i18n="xufton">XUFTON</div>
+          <div class="w-full bg-surface-container-low rounded-xl p-1.5 mb-1.5 prayer-pill">
+            <div class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider mb-0.5 prayer-pill-label" data-i18n="masjid_time_label">Masjidda</div>
+            <div class="font-prayer-time-display text-[22px] md:text-[24px] font-bold text-primary tabular-nums leading-none prayer-masjid" id="time-xufton">22:00</div>
+          </div>
+          <div class="w-full flex justify-between items-center px-1 text-[11px] prayer-azon-row">
+            <span class="text-[9px] text-on-surface-variant uppercase font-bold tracking-wider prayer-azon-label" data-i18n="api_time_label">Azon</span>
+            <span class="text-[12px] font-bold text-on-surface-variant tabular-nums prayer-api" id="api-xufton">21:45</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+    <div class="mt-3.5 flex flex-wrap items-center justify-between gap-2.5 px-1">
+      <button type="button" id="btn-open-monthly" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 text-emerald-deep dark:text-emerald-light border border-primary/20 text-xs font-bold shadow-xs hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-[17px] text-gold-shimmer">calendar_month</span>
+        <span data-i18n="monthly_calendar_btn">Oylik taqvim</span>
+      </button>
+      <span id="last-updated" data-timestamp="" class="font-label-caps font-bold text-[10px] text-emerald-deep dark:text-emerald-light tracking-wider uppercase"></span>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="w-full px-margin-mobile md:px-0">
+    <h2 class="font-headline-md text-headline-md text-primary font-bold mb-3" data-i18n="about_title">Biz haqimizda</h2>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 md:p-6 border border-surface-container-high shadow-sm flex items-start gap-4">
+      <div class="w-12 h-12 rounded-2xl bg-emerald-deep text-white flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden">
+        <img src="assets/images/logo.jpg" alt="Logo" class="w-full h-full object-cover"/>
+      </div>
+      <div>
+        <p class="font-body-md text-[14px] md:text-[15px] text-on-surface-variant leading-relaxed" data-i18n="about_text">
+          Mirzo Yusuf (Bodomzor) jome masjidi Toshkent shahri Yunusobod tumanida, Bog'ishamol ko'chasida joylashgan. Masjid mahalliy aholi uchun nafaqat ibodatxona, balki ma'naviy tarbiya o'chog'i ham hisoblanadi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Masjid Jamoasi Section -->
+  <section id="team" class="w-full overflow-hidden">
+    <div class="px-margin-mobile md:px-0 flex justify-between items-end mb-3">
+      <div>
+        <h2 class="font-headline-md text-headline-md text-primary font-bold" data-i18n="team_title">Masjid Jamoasi</h2>
+        <p class="text-xs text-on-surface-variant" data-i18n="team_subtitle">Barcha xodimlar va imom-xatiblar (batafsil ko'rish uchun bosing)</p>
+      </div>
+    </div>
+    <div id="team-grid" class="flex gap-3.5 overflow-x-auto hide-scrollbar px-margin-mobile md:px-0 md:grid md:grid-cols-3 lg:grid-cols-5 snap-x pb-2">
+      <!-- Loaded dynamically via Firebase -->
+    </div>
+  </section>
+
+  <!-- Faxriylar va homiylar Section -->
+  <section id="sponsors" class="w-full px-margin-mobile md:px-0">
+    <div class="flex justify-between items-end mb-3">
+      <h2 class="font-headline-md text-headline-md text-primary font-bold" data-i18n="sponsors_title">Faxriylar va homiylar</h2>
+    </div>
+    <div id="sponsors-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+      <!-- Loaded dynamically via Firebase -->
+    </div>
+  </section>
+
+  <!-- News Feed -->
+  <section id="news" class="w-full overflow-hidden">
+    <div class="px-margin-mobile md:px-0 flex justify-between items-end mb-3">
+      <h2 class="font-headline-md text-headline-md text-primary font-bold" data-i18n="news_title">Yangiliklar</h2>
+    </div>
+    <div id="news-grid" class="flex gap-4 overflow-x-auto hide-scrollbar px-margin-mobile md:px-0 md:grid md:grid-cols-3 snap-x pb-2">
+      <!-- Loaded dynamically via Firebase -->
+    </div>
+  </section>
+
+  <!-- Charity & Utilities Section -->
+  <section id="charity" class="w-full px-margin-mobile md:px-0">
+    <div class="mb-3">
+      <h2 class="font-headline-md text-headline-md text-primary font-bold" data-i18n="charity_title">Xayriya va ehson</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="charity-grid">
+      <!-- Loaded dynamically via Firebase -->
+    </div>
+  </section>
+
+  <!-- Diniy Matbuotga Obuna Section -->
+  <section id="subscription" class="w-full px-margin-mobile md:px-0 scroll-mt-24">
+    <div class="bg-surface-container-lowest dark:bg-[#121815] border border-surface-container-high rounded-2xl p-5 md:p-6 shadow-xs transition-all">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex-grow">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="material-symbols-outlined text-gold-shimmer text-2xl">auto_stories</span>
+            <h2 class="font-headline-md text-base sm:text-lg md:text-xl text-primary font-bold" data-i18n="sub_title">Diniy matbuotga onlayn obuna</h2>
+          </div>
+          <p class="font-body-md text-xs sm:text-sm text-slate-gray max-w-2xl leading-relaxed" data-i18n="sub_subtitle">O'zbekiston musulmonlari idorasining «Hidoyat», «Mo'minalar» jurnallari va «Islom nuri» gazetasiga masjid orqali oson obuna bo'ling.</p>
+          <div class="mt-3 flex items-center gap-2 flex-wrap">
+            <span class="font-label-caps text-[10px] sm:text-[11px] font-bold bg-primary/10 text-emerald-deep dark:text-emerald-light px-3 py-1 rounded-full border border-primary/20" data-i18n="sub_year_badge">2026 YILGI OBUNA</span>
+          </div>
+        </div>
+        <div class="flex-shrink-0 self-start md:self-center">
+          <button type="button" id="sub-toggle-btn" onclick="toggleSubscriptionDetails()" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-deep hover:opacity-90 text-white font-bold text-xs sm:text-sm shadow-sm active:scale-95 transition-all cursor-pointer group">
+            <span class="material-symbols-outlined text-base group-hover:scale-110 transition-transform">edit_document</span>
+            <span id="sub-toggle-btn-text" data-i18n="sub_toggle_btn">Obuna bo'lish</span>
+            <span class="material-symbols-outlined text-base transition-transform duration-300" id="sub-toggle-icon">expand_more</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="sub-details-container" class="hidden mt-6 pt-6 border-t border-surface-container-high space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <!-- 1. Hidoyat -->
+          <div class="bg-surface-container-low dark:bg-[#161f1b] border border-surface-container-high rounded-2xl p-5 flex flex-col justify-between shadow-xs hover:border-gold-shimmer hover:shadow-md transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-xl bg-emerald-deep/10 text-emerald-deep flex items-center justify-center font-bold">
+                  <span class="material-symbols-outlined text-xl text-emerald-deep">menu_book</span>
+                </span>
+                <span class="font-label-caps text-[10px] font-bold px-2 py-0.5 bg-emerald-deep/10 text-emerald-deep rounded-full" data-i18n="sub_card_issues_12">12 TA SON</span>
+              </div>
+              <h3 class="font-bold text-base text-primary mb-1" data-i18n="sub_hidoyat_name">«Hidoyat» jurnali</h3>
+              <p class="text-xs text-on-surface-variant leading-relaxed mb-3" data-i18n="sub_hidoyat_desc">Diniy-ma'rifiy, ilmiy-adabiy va ijtimoiy bosh nashr. Oila va jamiyat tarbiyasi uchun zarur qo'llanma.</p>
+            </div>
+            <div class="pt-3 border-t border-surface-container-high flex items-baseline justify-between">
+              <span class="text-xs text-on-surface-variant" data-i18n="sub_yearly_label">Yillik:</span>
+              <span class="font-bold text-primary text-base font-prayer-time-display">186 000 <span data-i18n="sub_currency">so'm</span></span>
+            </div>
+          </div>
+          <!-- 2. Mo'minalar -->
+          <div class="bg-surface-container-low dark:bg-[#161f1b] border border-surface-container-high rounded-2xl p-5 flex flex-col justify-between shadow-xs hover:border-gold-shimmer hover:shadow-md transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-700 flex items-center justify-center font-bold">
+                  <span class="material-symbols-outlined text-xl text-purple-600">spa</span>
+                </span>
+                <span class="font-label-caps text-[10px] font-bold px-2 py-0.5 bg-purple-500/10 text-purple-700 rounded-full" data-i18n="sub_card_issues_12">12 TA SON</span>
+              </div>
+              <h3 class="font-bold text-base text-primary mb-1" data-i18n="sub_mominalar_name">«Mo'minalar» jurnali</h3>
+              <p class="text-xs text-on-surface-variant leading-relaxed mb-3" data-i18n="sub_mominalar_desc">Xotin-qizlar va oila ma'naviyati, farzand tarbiyasi va milliy-diniy qadriyatlar uchun maxsus jurnal.</p>
+            </div>
+            <div class="pt-3 border-t border-surface-container-high flex items-baseline justify-between">
+              <span class="text-xs text-on-surface-variant" data-i18n="sub_yearly_label">Yillik:</span>
+              <span class="font-bold text-primary text-base font-prayer-time-display">186 000 <span data-i18n="sub_currency">so'm</span></span>
+            </div>
+          </div>
+          <!-- 3. Islom Nuri -->
+          <div class="bg-surface-container-low dark:bg-[#161f1b] border border-surface-container-high rounded-2xl p-5 flex flex-col justify-between shadow-xs hover:border-gold-shimmer hover:shadow-md transition-all group">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center font-bold">
+                  <span class="material-symbols-outlined text-xl text-amber-600">newspaper</span>
+                </span>
+                <span class="font-label-caps text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-700 rounded-full" data-i18n="sub_card_issues_24">24 TA SON</span>
+              </div>
+              <h3 class="font-bold text-base text-primary mb-1" data-i18n="sub_islomnuri_name">«Islom nuri» gazetasi</h3>
+              <p class="text-xs text-on-surface-variant leading-relaxed mb-3" data-i18n="sub_islomnuri_desc">Dolzarb diniy maqolalar, savol-javoblar, fatvolar va muhim hayotiy mavzular haqida ma'lumotlar.</p>
+            </div>
+            <div class="pt-3 border-t border-surface-container-high flex items-baseline justify-between">
+              <span class="text-xs text-on-surface-variant" data-i18n="sub_yearly_label">Yillik:</span>
+              <span class="font-bold text-primary text-base font-prayer-time-display">162 000 <span data-i18n="sub_currency">so'm</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subscription Form -->
+        <div class="bg-surface-container-low dark:bg-[#161f1b] border border-surface-container-high rounded-2xl p-5 md:p-7 shadow-xs">
+          <h3 class="font-headline-md text-base md:text-lg font-bold text-primary mb-2" data-i18n="sub_form_title">Obuna bo'lish uchun ariza qoldirish</h3>
+          <p class="text-xs text-on-surface-variant mb-5" data-i18n="sub_form_desc">Quyidagi formani to'ldiring. Masjid ma'muriyati siz bilan bog'lanib, obunani rasmiylashtirib beradi.</p>
+
+          <form id="subscription-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-on-surface mb-2" data-i18n="sub_choose_label">Obuna bo'lmoqchi bo'lgan nashr(lar)ni tanlang:</label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <label class="flex items-center gap-2.5 p-3 rounded-xl border border-surface-container-high hover:border-gold-shimmer bg-surface-container-lowest dark:bg-[#121815] cursor-pointer select-none transition-all">
+                  <input type="checkbox" name="sub_item" value="sub_hidoyat_name" data-price="186000" class="sub-checkbox rounded text-emerald-deep focus:ring-emerald-deep w-4 h-4 cursor-pointer" checked onchange="calcSubTotal()">
+                  <div class="text-xs">
+                    <div class="font-bold text-primary" data-i18n="sub_hidoyat_name">«Hidoyat» jurnali</div>
+                    <div class="text-[11px] text-on-surface-variant">186 000 <span data-i18n="sub_currency">so'm</span></div>
+                  </div>
+                </label>
+                <label class="flex items-center gap-2.5 p-3 rounded-xl border border-surface-container-high hover:border-gold-shimmer bg-surface-container-lowest dark:bg-[#121815] cursor-pointer select-none transition-all">
+                  <input type="checkbox" name="sub_item" value="sub_mominalar_name" data-price="186000" class="sub-checkbox rounded text-emerald-deep focus:ring-emerald-deep w-4 h-4 cursor-pointer" onchange="calcSubTotal()">
+                  <div class="text-xs">
+                    <div class="font-bold text-primary" data-i18n="sub_mominalar_name">«Mo'minalar» jurnali</div>
+                    <div class="text-[11px] text-on-surface-variant">186 000 <span data-i18n="sub_currency">so'm</span></div>
+                  </div>
+                </label>
+                <label class="flex items-center gap-2.5 p-3 rounded-xl border border-surface-container-high hover:border-gold-shimmer bg-surface-container-lowest dark:bg-[#121815] cursor-pointer select-none transition-all">
+                  <input type="checkbox" name="sub_item" value="sub_islomnuri_name" data-price="162000" class="sub-checkbox rounded text-emerald-deep focus:ring-emerald-deep w-4 h-4 cursor-pointer" onchange="calcSubTotal()">
+                  <div class="text-xs">
+                    <div class="font-bold text-primary" data-i18n="sub_islomnuri_name">«Islom nuri» gazetasi</div>
+                    <div class="text-[11px] text-on-surface-variant">162 000 <span data-i18n="sub_currency">so'm</span></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-xs font-bold text-on-surface mb-1.5" data-i18n="sub_name_label">Ism-familiyangiz *</label>
+                <input type="text" id="sub-name" required placeholder="Masalan: Abdulloh Karimov" class="w-full bg-surface-container border border-surface-variant rounded-xl px-3.5 py-2.5 text-xs text-on-surface focus:outline-none focus:border-gold-shimmer">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-on-surface mb-1.5" data-i18n="sub_phone_label">Telefon raqamingiz *</label>
+                <input type="tel" id="sub-phone" required placeholder="+998 90 123 45 67" class="w-full bg-surface-container border border-surface-variant rounded-xl px-3.5 py-2.5 text-xs text-on-surface focus:outline-none focus:border-gold-shimmer">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <div>
+                <label class="block text-xs font-bold text-on-surface mb-1.5" data-i18n="sub_delivery_label">Yetkazib berish usuli</label>
+                <select id="sub-delivery" class="w-full bg-surface-container border border-surface-variant rounded-xl px-3.5 py-2.5 text-xs text-on-surface focus:outline-none focus:border-gold-shimmer">
+                  <option value="mosque_pickup" data-i18n="sub_delivery_opt2">Mirzo Yusuf masjididan olib ketish</option>
+                  <option value="home_delivery" data-i18n="sub_delivery_opt1">Uyga yetkazib berish</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-on-surface mb-1.5" data-i18n="sub_address_label">Manzil / Mo'ljal</label>
+                <input type="text" id="sub-address" placeholder="Masalan: Yunusobod tumani, 7-mavze" class="w-full bg-surface-container border border-surface-variant rounded-xl px-3.5 py-2.5 text-xs text-on-surface focus:outline-none focus:border-gold-shimmer">
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-surface-container-high flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="flex items-baseline gap-2">
+                <span class="text-xs text-on-surface-variant font-medium" data-i18n="sub_total_label">Jami to'lov:</span>
+                <span id="sub-total-display" class="font-bold text-lg text-primary font-prayer-time-display">186 000 so'm</span>
+              </div>
+              <button type="submit" id="sub-submit-btn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-deep text-white font-bold text-xs shadow-sm hover:opacity-90 active:scale-95 transition-all cursor-pointer">
+                <span class="material-symbols-outlined text-base">send</span>
+                <span data-i18n="sub_submit_btn">Obunaga yozilish</span>
+              </button>
+            </div>
+
+            <div id="sub-success-msg" class="hidden p-3.5 rounded-xl bg-emerald-deep/10 text-emerald-deep dark:text-emerald-light text-xs font-medium text-center border border-emerald-deep/20" data-i18n="sub_success">
+              Sizning arizangiz qabul qilindi! Masjid ma'muriyati tez orada siz bilan bog'lanadi.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="w-full px-margin-mobile md:px-0 scroll-mt-24">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-5 gap-2">
+      <div>
+        <h2 class="font-headline-md text-headline-md text-primary font-bold" data-i18n="gallery_title">Foto galereya</h2>
+        <p class="font-body-md text-sm text-slate-gray mt-1 max-w-xl" data-i18n="gallery_subtitle">Masjidimizning go'zal me'moriy ko'rinishlari va jamoat tadbirlaridan olingan yorqin lahzalar bilan tanishing.</p>
+      </div>
+      <div class="flex items-center gap-2 self-start md:self-auto">
+        <span id="gallery-count-badge" class="font-label-caps text-xs font-bold bg-primary/10 text-emerald-deep dark:text-emerald-light px-3.5 py-1.5 rounded-full border border-primary/20 shadow-xs"></span>
+      </div>
+    </div>
+    <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
+      <!-- Loaded dynamically via Firebase -->
+    </div>
+    <div id="gallery-pagination" class="mt-6 flex items-center justify-center gap-2 hidden">
+      <!-- Pagination buttons generated dynamically -->
+    </div>
+  </section>
+
+  <!-- Dua Request Section -->
+  <section id="dua" class="w-full px-margin-mobile md:px-0">
+    <div class="mb-3">
+      <h2 class="font-headline-md text-headline-md text-primary font-bold" data-i18n="dua_title">Jamoatdan duo olish</h2>
+      <p class="text-xs text-on-surface-variant mt-0.5" data-i18n="dua_warning_note">Eslatma: Juma kuni soat 12:40 dan 13:00 gacha duo yuborish to'xtatiladi.</p>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 md:p-6 border border-surface-container-high shadow-sm">
+      <form id="dua-form" class="space-y-3">
+        <input type="text" id="dua-name" placeholder="Ismingiz (ixtiyoriy)" class="w-full bg-surface-container-low border border-surface-variant rounded-xl px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-gold-shimmer transition-colors"/>
+        <textarea id="dua-text" rows="3" placeholder="Duo mazmuni (Masalan: Bemorman, shifo so'rab duo qilishlarini so'rayman)" required class="w-full bg-surface-container-low border border-surface-variant rounded-xl px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-gold-shimmer transition-colors resize-none"></textarea>
+        <button type="submit" id="dua-submit-btn" class="w-full bg-emerald-deep hover:bg-emerald-light text-white font-label-caps text-xs py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm font-bold active:scale-[0.98]">
+          <span class="material-symbols-outlined text-[18px]">send</span>
+          <span data-i18n="dua_submit">Yuborish</span>
+        </button>
+      </form>
+      <div id="dua-success" class="hidden mt-3 p-3.5 bg-emerald-deep/10 border border-emerald-deep/30 rounded-xl">
+        <p class="text-xs text-emerald-deep dark:text-emerald-light font-medium text-center" data-i18n="dua_success">Xabaringiz yuborildi. Kelayotgan juma namozida yetkaziladi!</p>
+      </div>
+      <div id="dua-blocked" class="hidden mt-3 p-3.5 bg-red-500/10 border border-red-500/30 rounded-xl">
+        <p class="text-xs text-red-600 font-medium text-center" data-i18n="dua_blocked">Hozir Juma namozi vaqti (12:40 - 13:00). Duolar qabul qilinmaydi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="w-full px-margin-mobile md:px-0 scroll-mt-24">
+    <h2 class="font-headline-md text-headline-md text-primary font-bold mb-3" data-i18n="contact_title">Biz bilan aloqa</h2>
+    <div class="bg-surface-container-lowest rounded-2xl overflow-hidden border border-surface-container-high shadow-sm grid grid-cols-1 md:grid-cols-2">
+      <iframe src="https://maps.google.com/maps?q=41.3372993,69.2911802&hl=uz&z=16&output=embed"
+        width="100%" height="260" style="border:0;" allowfullscreen="" loading="lazy" class="block w-full h-full min-h-[220px]"></iframe>
+      <div class="p-5 md:p-6 space-y-4 flex flex-col justify-center">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-emerald-deep text-[22px] mt-0.5">location_on</span>
+          <div>
+            <div class="font-label-caps text-[10px] text-on-surface-variant font-bold" data-i18n="contact_address_label">Manzil</div>
+            <div class="text-sm text-on-surface font-medium" data-i18n="contact_address_val">Toshkent shahri, Yunusobod tumani, Bog'ishamol ko'chasi</div>
+            <div class="flex items-center gap-2 mt-2">
+              <a href="https://www.google.com/maps?q=41.3372993,69.2911802" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-primary/10 hover:bg-primary/20 px-2.5 py-1 rounded-lg transition-colors border border-primary/20">
+                <span class="material-symbols-outlined text-xs">map</span> Google Maps
+              </a>
+              <a href="https://yandex.uz/maps/?ll=69.2911802,41.3372993&z=16&pt=69.2911802,41.3372993" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-primary/10 hover:bg-primary/20 px-2.5 py-1 rounded-lg transition-colors border border-primary/20">
+                <span class="material-symbols-outlined text-xs">navigation</span> Yandex Maps
+              </a>
+            </div>
+          </div>
+        </div>
+        <a href="https://t.me/mirzo_yusuf_masjidi" target="_blank" class="flex items-start gap-3 hover:opacity-80 transition-opacity">
+          <span class="material-symbols-outlined text-emerald-deep text-[22px] mt-0.5">send</span>
+          <div>
+            <div class="font-label-caps text-[10px] text-on-surface-variant font-bold" data-i18n="contact_tg_label">Telegram kanal</div>
+            <div class="text-sm text-primary font-medium">@mirzo_yusuf_masjidi</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full mt-12 pt-8 pb-12 border-t border-surface-container-high bg-surface-container-lowest/70">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-0 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden bg-emerald-deep flex items-center justify-center shadow-sm">
+          <img src="assets/images/logo.jpg" alt="Logo" class="w-full h-full object-cover"/>
+        </div>
+        <div>
+          <div class="font-headline-md text-base text-primary font-bold leading-tight" data-i18n="site_subheading">Mirzo Yusuf Jome Masjidi</div>
+          <div class="text-xs text-on-surface-variant" data-i18n="hero_subtitle">Toshkent shahri, Yunusobod tumani</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Telegram Button -->
+        <a href="https://t.me/mirzo_yusuf_masjidi" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#24A1DE] hover:bg-[#1E8BC0] text-white font-bold text-xs shadow-sm hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          <span>Telegram kanal</span>
+        </a>
+        <!-- Admin Panel Button -->
+        <a href="admin.html" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-variant hover:border-gold-shimmer text-primary font-bold text-xs shadow-xs hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">
+          <span class="material-symbols-outlined text-[18px] text-gold-shimmer">admin_panel_settings</span>
+          <span>Admin Panel</span>
+        </a>
+      </div>
+    </div>
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-0 mt-6 pt-4 border-t border-surface-container text-center text-xs text-on-surface-variant">
+      © 2026 Mirzo Yusuf (Bodomzor) Jome Masjidi. Barcha huquqlar himoyalangan.
+    </div>
+  </footer>
+
+  <!-- Monthly Prayer Calendar Modal -->
+  <div id="monthly-calendar-modal" class="fixed inset-0 z-[2050] bg-black/80 backdrop-blur-md hidden items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto">
+    <div class="bg-surface-container-lowest dark:bg-[#121815] border border-surface-container-high rounded-2xl shadow-2xl max-w-5xl w-full max-h-[92vh] flex flex-col overflow-hidden my-auto">
+      <div class="p-4 md:p-5 border-b border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-3 bg-surface-container-low/70">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-gold-shimmer text-2xl">calendar_month</span>
+            <h3 class="font-headline-md text-lg md:text-xl font-bold text-primary" data-i18n="monthly_calendar_title">Oylik namoz taqvimi</h3>
+          </div>
+          <p class="text-xs text-on-surface-variant mt-0.5" data-i18n="monthly_calendar_sub">Mirzo Yusuf (Bodomzor) Jome Masjidi (Toshkent)</p>
+        </div>
+        <div class="flex items-center gap-2 self-stretch md:self-auto justify-between md:justify-end">
+          <div class="flex items-center gap-1 bg-surface-container border border-surface-variant rounded-xl p-1 shadow-xs">
+            <button type="button" id="cal-prev-month" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high active:scale-90 transition-all font-bold text-base cursor-pointer">‹</button>
+            <span id="cal-current-month-display" class="px-2 font-bold text-xs md:text-sm text-primary min-w-[130px] text-center select-none">Sentyabr 2026</span>
+            <button type="button" id="cal-next-month" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-high active:scale-90 transition-all font-bold text-base cursor-pointer">›</button>
+          </div>
+          <button type="button" id="cal-print-btn" class="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-surface-container border border-surface-variant hover:bg-surface-container-high text-on-surface text-xs font-bold transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-base">print</span>
+            <span class="hidden sm:inline" data-i18n="print_btn">Chop etish</span>
+          </button>
+          <button type="button" id="cal-close-btn" class="w-9 h-9 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center text-lg font-bold transition-all active:scale-90 cursor-pointer">✕</button>
+        </div>
+      </div>
+      <div class="flex-grow overflow-auto p-2 md:p-4" id="monthly-calendar-table-container">
+        <div class="min-w-[720px]">
+          <table class="w-full text-left text-xs border-collapse" id="monthly-calendar-table">
+            <thead>
+              <tr class="bg-primary text-white rounded-xl font-label-caps text-[11px] uppercase tracking-wider">
+                <th class="py-3 px-3 rounded-l-xl text-center" data-i18n="th_day">Kun</th>
+                <th class="py-3 px-3" data-i18n="th_weekday">Hafta kuni</th>
+                <th class="py-3 px-3" data-i18n="th_hijri">Hijriy</th>
+                <th class="py-3 px-2.5 text-center bg-white/10" data-i18n="bomdod">Bomdod</th>
+                <th class="py-3 px-2.5 text-center" data-i18n="quyosh">Quyosh</th>
+                <th class="py-3 px-2.5 text-center bg-white/10" data-i18n="peshin">Peshin</th>
+                <th class="py-3 px-2.5 text-center" data-i18n="asr">Asr</th>
+                <th class="py-3 px-2.5 text-center bg-white/10 text-gold-shimmer" data-i18n="th_shom_iftor">Shom (Iftor)</th>
+                <th class="py-3 px-2.5 rounded-r-xl text-center" data-i18n="xufton">Xufton</th>
+              </tr>
+            </thead>
+            <tbody id="monthly-calendar-tbody" class="divide-y divide-surface-container-high">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="p-3 md:p-4 bg-surface-container-low/70 border-t border-surface-container-high text-[11px] text-on-surface-variant flex flex-col sm:flex-row items-center justify-between gap-2">
+        <span>📍 <span data-i18n="calendar_coords_note">Toshkent shahri, Yunusobod tumani (41.3373° N, 69.2912° E) hisobi bo'yicha.</span></span>
+        <span class="font-bold text-primary" data-i18n="hanafi_method">Hanafiy mazhabi bo'yicha</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Bottom Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 pb-safe bg-surface shadow-lg rounded-t-2xl border-t border-surface-container" id="bottom-nav">
+  <a class="bottom-nav-item flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full p-2 min-w-[60px] active:scale-90 transition-transform duration-150 group" href="#home" data-section="home">
+    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">home</span>
+    <span class="font-label-caps text-[9px] mt-0.5" data-i18n="bottom_nav_home">BOSH</span>
+  </a>
+  <a class="bottom-nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant rounded-full p-2 min-w-[60px] transition-colors active:scale-90" href="#prayers" data-section="prayers">
+    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">schedule</span>
+    <span class="font-label-caps text-[9px] mt-0.5" data-i18n="bottom_nav_prayers">NAMOZ</span>
+  </a>
+  <a class="bottom-nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant rounded-full p-2 min-w-[60px] transition-colors active:scale-90" href="#charity" data-section="charity">
+    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">volunteer_activism</span>
+    <span class="font-label-caps text-[9px] mt-0.5" data-i18n="bottom_nav_charity">XAYRIYA</span>
+  </a>
+  <a class="bottom-nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant rounded-full p-2 min-w-[60px] transition-colors active:scale-90" href="#gallery" data-section="gallery">
+    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">photo_library</span>
+    <span class="font-label-caps text-[9px] mt-0.5" data-i18n="bottom_nav_gallery">GALEREYA</span>
+  </a>
+  <a class="bottom-nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant rounded-full p-2 min-w-[60px] transition-colors active:scale-90" href="#dua" data-section="dua">
+    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">prayer_times</span>
+    <span class="font-label-caps text-[9px] mt-0.5" data-i18n="bottom_nav_dua">DUO</span>
+  </a>
+</nav>
+
+<!-- Team Modal -->
+<div id="team-modal" class="fixed inset-0 z-[2000] bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-6 md:p-8 relative border border-surface-container-high shadow-2xl">
+    <button onclick="closeTeamModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface text-lg font-bold transition-colors">✕</button>
+    <div class="flex flex-col items-center text-center">
+      <div id="modal-avatar" class="w-36 h-36 md:w-44 md:h-44 rounded-2xl overflow-hidden bg-surface-container mb-4 border-2 border-emerald-deep flex items-center justify-center text-5xl text-primary shadow-lg flex-shrink-0">
+        <span class="material-symbols-outlined text-[56px]">person</span>
+      </div>
+      <h3 id="modal-name" class="font-headline-md text-2xl font-bold text-primary"></h3>
+      <p id="modal-role" class="font-label-caps text-xs text-gold-metallic font-bold mt-1 tracking-wider uppercase"></p>
+      <div class="flex items-center gap-3 mt-4 mb-2 flex-wrap justify-center">
+        <a id="modal-phone" href="#" class="hidden bg-emerald-deep/10 text-emerald-deep text-xs font-bold px-4 py-2 rounded-xl border border-emerald-deep/20 hover:bg-emerald-deep hover:text-white transition-colors flex items-center gap-1.5 shadow-sm"></a>
+        <a id="modal-tg" href="#" target="_blank" class="hidden bg-blue-500/10 text-blue-600 text-xs font-bold px-4 py-2 rounded-xl border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-colors flex items-center gap-1.5 shadow-sm"></a>
+      </div>
+      <div id="modal-desc" class="w-full text-sm text-on-surface-variant mt-3 text-left leading-relaxed bg-surface-container-low p-4 rounded-xl border border-surface-variant max-h-[40vh] overflow-y-auto"></div>
+    </div>
+  </div>
+</div>
+
+<!-- News Detail Modal -->
+<div id="news-modal" class="fixed inset-0 z-[2000] bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-6 relative border border-surface-container-high shadow-2xl">
+    <button onclick="closeNewsModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-surface-container-low hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface text-lg font-bold transition-colors">✕</button>
+    <div id="news-modal-img" class="w-full h-52 rounded-xl overflow-hidden mb-4 bg-surface-container hidden shadow-sm">
+      <img src="" alt="" class="w-full h-full object-cover"/>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="font-label-caps text-[10px] text-gold-metallic font-bold" id="news-modal-date"></span>
+    </div>
+    <h3 id="news-modal-title" class="font-headline-md text-xl font-bold text-primary mb-3"></h3>
+    <div id="news-modal-desc" class="text-sm text-on-surface-variant leading-relaxed"></div>
+  </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightbox-modal" class="fixed inset-0 z-[2000] bg-black/95 backdrop-blur-md hidden items-center justify-center p-2 md:p-6">
+  <button id="lightbox-close" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xl font-bold z-20 transition-colors">✕</button>
+  <div id="lightbox-counter" class="absolute top-4 left-4 font-label-caps text-xs font-bold text-white/80 bg-black/50 px-3 py-1.5 rounded-full border border-white/20 z-20">1 / 1</div>
+  <button id="lightbox-prev" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-2xl z-20 transition-all active:scale-90">‹</button>
+  <div class="relative max-w-[92vw] max-h-[85vh] flex items-center justify-center">
+    <img id="lightbox-img" src="" alt="Galereya fotosurati" class="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl transition-transform duration-200"/>
+  </div>
+  <button id="lightbox-next" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/10 hover:bg-white/30 rounded-full flex items-center justify-center text-white text-2xl z-20 transition-all active:scale-90">›</button>
+</div>
+
+<!-- Main Script -->
+<script>
+  (function() {
+    var s = document.createElement('script');
+    s.src = 'main.js?v=' + Date.now();
+    s.defer = true;
+    document.head.appendChild(s);
+  })();
+</script>
+</body>
+</html>
