@@ -237,7 +237,7 @@
 </head>
 <body>
 
-<!-- ═════ LOGIN ═════ -->
+<!-- ═════ LOGIN & 2FA ═════ -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
@@ -245,15 +245,29 @@
       <h1>MIRZA YUSUF MASJIDI</h1>
       <p>Admin boshqaruv paneli — faqat vakolatli xodimlar</p>
     </div>
-    <div class="form-group">
-      <label>Parol</label>
-      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/>
+    
+    <div id="step1">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Admin username..." onkeydown="if(event.key==='Enter') doLogin()"/>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="doLogin()">
+        <span class="material-symbols-outlined">login</span> Davom etish
+      </button>
     </div>
-    <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="doLogin()">
-      <span class="material-symbols-outlined">login</span> Kirish
-    </button>
-    <div class="msg msg-error show" id="login-error" style="display:none;">
-      <span class="material-symbols-outlined" style="font-size:18px;">error</span> Parol noto`g`ri!
+
+    <div id="step2" style="display:none;">
+      <div class="form-group">
+        <label>Tasdiqlash kodi</label>
+        <input type="number" id="tgcode" placeholder="Telegramga kelgan 4 xonali kod" onkeydown="if(event.key==='Enter') verifyCode()"/>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="verifyCode()">
+        <span class="material-symbols-outlined">check_circle</span> Tasdiqlash va Kirish
+      </button>
+    </div>
+
+    <div class="msg msg-error" id="login-error" style="display:none;margin-top:16px;">
+      <span class="material-symbols-outlined" style="font-size:18px;">error</span> <span id="login-err-text">Xato!</span>
     </div>
   </div>
 </div>
@@ -693,25 +707,78 @@ const PASSWORDS = ['masjid2026', 'admin123'];
 const PRAYER_KEYS = ['bomdod','quyosh','peshin','asr','shom','xufton'];
 const DEFAULT_TOKEN = '8952765866:AAHJzrWGJ7l1WAOu2YEVu-Y-Hi1Sh4nurdo';
 
-// ──────── LOGIN ────────
+// ──────── LOGIN & 2FA ────────
+const ADMIN_USERS = {
+  'azizbek': '822033965' // Telegram ID
+};
+let generatedTgCode = null;
+let tgCodeTimeout = null;
+
 function doLogin() {
-  const pwd = document.getElementById('login-password').value;
-  if (PASSWORDS.includes(pwd)) {
-    sessionStorage.setItem('my_admin_ok','1');
+  const un = document.getElementById('username').value.trim().toLowerCase();
+  const chatId = ADMIN_USERS[un];
+  const errEl = document.getElementById('login-error');
+  const errText = document.getElementById('login-err-text');
+  
+  if (chatId) {
+    generatedTgCode = Math.floor(1000 + Math.random() * 9000).toString();
+    const token = window.MIRZO_YUSUF_BOT_TOKEN || DEFAULT_TOKEN;
+    const tgText = `🔐 Mirza Yusuf Admin paneliga kirish uchun tasdiqlash kodi: ${generatedTgCode}
+
+Agar bu siz bo\`lmasangiz, e'tibor bermang.`;
+    
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ chat_id: chatId, text: tgText })
+    }).catch(e => console.error(e));
+
+    if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
+    tgCodeTimeout = setTimeout(() => { generatedTgCode = null; document.getElementById('tgcode').value = ''; }, 120000);
+
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+    errEl.style.display = 'none';
+  } else {
+    errText.textContent = 'Noto`g`ri username!';
+    errEl.style.display = 'flex'; errEl.classList.add('show');
+  }
+}
+
+function verifyCode() {
+  const errEl = document.getElementById('login-error');
+  const errText = document.getElementById('login-err-text');
+  
+  if (!generatedTgCode) {
+    errText.textContent = 'Kod muddati tugagan!';
+    errEl.style.display = 'flex'; errEl.classList.add('show');
+    return;
+  }
+  if (document.getElementById('tgcode').value === generatedTgCode) {
+    if (tgCodeTimeout) clearTimeout(tgCodeTimeout);
+    generatedTgCode = null;
+    const sessionToken = Date.now() + '.' + Math.random().toString(36).substring(2, 10);
+    localStorage.setItem('admin_session', sessionToken);
+    
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('admin-layout').style.display = 'flex';
     initAdmin();
   } else {
-    const e = document.getElementById('login-error');
-    e.style.display = 'flex'; e.classList.add('show');
-    setTimeout(() => { e.style.display='none'; e.classList.remove('show'); }, 3000);
+    errText.textContent = 'Noto`g`ri kod!';
+    errEl.style.display = 'flex'; errEl.classList.add('show');
   }
 }
-document.getElementById('login-password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-if (sessionStorage.getItem('my_admin_ok')==='1') {
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('admin-layout').style.display='flex';
-  initAdmin();
+
+const session = localStorage.getItem('admin_session');
+if (session && session.includes('.')) {
+  const ts = parseInt(session.split('.')[0]);
+  if (!isNaN(ts) && Date.now() - ts < 24 * 60 * 60 * 1000) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-layout').style.display = 'flex';
+    initAdmin();
+  } else {
+    localStorage.removeItem('admin_session');
+  }
 }
 
 // ──────── PANEL ────────
