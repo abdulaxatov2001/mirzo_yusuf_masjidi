@@ -2,7 +2,7 @@
 // MIRZA YUSUF MASJIDI - FIREBASE CONFIGURATION
 // ============================================================
 
-const firebaseConfig = {
+window.firebaseConfig = {
   apiKey: "AIzaSyA-cAN8qvQI32cY3r44tFN1xKZip2frrGM",
   authDomain: "mirza-yusuf-masjidi.firebaseapp.com",
   databaseURL: "https://mirza-yusuf-masjidi-default-rtdb.europe-west1.firebasedatabase.app/",
