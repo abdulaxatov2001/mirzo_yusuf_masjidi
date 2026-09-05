@@ -10,7 +10,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="firebase-config.js"></script>
+  <script src="firebase-config.js?v=3"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -323,7 +323,7 @@
     <!-- ── FIREBASE STATUS BANNER ── -->
     <div class="firebase-banner" id="fb-banner">
       <span class="material-symbols-outlined" style="font-size:18px;">warning</span>
-      <span>Firebase sozlanmagan — firebase-config.js ni to`ldiring. Namoz vaqtlari localStorage'da saqlanadi.</span>
+      <span>Firebase sozlanmagan — firebase-config.js?v=3 ni to`ldiring. Namoz vaqtlari localStorage'da saqlanadi.</span>
     </div>
 
     <!-- ══ DASHBOARD ══ -->
@@ -747,7 +747,7 @@ function showFbBanner(ok) {
     el.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">check_circle</span><span>Firebase ulandi ✅ — Barcha ma`lumotlar real-time sinxronlanadi.</span>';
   } else {
     el.className = 'firebase-banner';
-    el.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">warning</span><span>Firebase sozlanmagan — firebase-config.js ni to`ldiring. Namoz vaqtlari brauzerda saqlanadi.</span>';
+    el.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">warning</span><span>Firebase sozlanmagan — firebase-config.js?v=3 ni to`ldiring. Namoz vaqtlari brauzerda saqlanadi.</span>';
   }
 }
 
