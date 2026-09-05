@@ -880,7 +880,7 @@ function loadNews() {
 function renderNews() {
   const el = document.getElementById('news-list');
   if (!el) return;
-  if (!newsList.length) { el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Hozircha yangiliklar yo'q.</p>'; return; }
+  if (!newsList.length) { el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Hozircha yangiliklar yo`q.</p>'; return; }
   el.innerHTML = newsList.map(n => {
     const hasImg = n.imgUrl && n.imgUrl.length > 10;
     return `<div class="item-card">
@@ -925,7 +925,7 @@ function loadTeam() {
 function renderTeam() {
   const el=document.getElementById('team-list');
   if(!el) return;
-  if(!teamList.length){el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Jamoa a'zolari yo'q.</p>';return;}
+  if(!teamList.length){el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Jamoa a`zolari yo`q.</p>';return;}
   el.innerHTML=teamList.map(m=>{
     const hasImg=m.imgUrl&&m.imgUrl.length>10;
     return `<div class="item-card">
@@ -968,7 +968,7 @@ function loadSponsors(){
 function renderSponsors(){
   const el=document.getElementById('sponsors-list');
   if(!el) return;
-  if(!sponsorsList.length){el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Faxriylar yo'q.</p>';return;}
+  if(!sponsorsList.length){el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Faxriylar yo`q.</p>';return;}
   el.innerHTML=sponsorsList.map(s=>{
     const hasImg=s.imgUrl&&s.imgUrl.length>10;
     return `<div class="item-card">
@@ -1087,7 +1087,7 @@ function loadSubs(){
 function renderSubs(){
   const tbody=document.getElementById('subs-tbody');
   if(!tbody) return;
-  if(!subsList.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px;">Hozircha obuna arizalar yo'q.</td></tr>';return;}
+  if(!subsList.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:20px;">Hozircha obuna arizalar yo`q.</td></tr>';return;}
   tbody.innerHTML=subsList.map(s=>`
     <tr>
       <td>${s.name||'—'}</td>
@@ -1117,7 +1117,7 @@ function loadDua(){
 function renderDua(){
   const el=document.getElementById('dua-list');
   if(!el) return;
-  if(!duaList.length){el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Hozircha duo so'rovlar yo'q.</p>';return;}
+  if(!duaList.length){el.innerHTML='<p style="color:var(--muted);font-size:0.82rem;">Hozircha duo so`rovlar yo`q.</p>';return;}
   el.innerHTML=duaList.map(d=>`
     <div class="item-card">
       <div class="item-info">
