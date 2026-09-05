@@ -240,7 +240,7 @@
       <span class="material-symbols-outlined">login</span> Kirish
     </button>
     <div class="msg msg-error show" id="login-error" style="display:none;">
-      <span class="material-symbols-outlined" style="font-size:18px;">error</span> Parol noto'g'ri!
+      <span class="material-symbols-outlined" style="font-size:18px;">error</span> Parol noto`g`ri!
     </div>
   </div>
 </div>
@@ -953,7 +953,7 @@ async function addTeamMember() {
     const fi=document.getElementById('team-img');if(fi)fi.value='';
     document.getElementById('team-preview').style.display='none';
   }catch(e){console.error(e);}
-  btn.disabled=false; btn.innerHTML='<span class="material-symbols-outlined">save</span> Qo'shish';
+  btn.disabled=false; btn.innerHTML='<span class="material-symbols-outlined">save</span> Qo`shish';
 }
 
 // ──────── SPONSORS ────────
@@ -995,7 +995,7 @@ async function addSponsor(){
     const fi=document.getElementById('sponsor-img');if(fi)fi.value='';
     document.getElementById('sponsor-preview').style.display='none';
   }catch(e){console.error(e);}
-  btn.disabled=false;btn.innerHTML='<span class="material-symbols-outlined">save</span> Qo'shish';
+  btn.disabled=false;btn.innerHTML='<span class="material-symbols-outlined">save</span> Qo`shish';
 }
 
 // ──────── GALLERY ────────
@@ -1153,7 +1153,7 @@ function saveBotConfig(){
   localStorage.setItem('my_admin_id_2',id2);
   localStorage.setItem('my_admin_id_3',id3);
   applyBot(token,[id1,id2,id3].filter(Boolean));
-  checkBot(token).then(ok=>{if(ok)showMsg('bot-ok');else{document.getElementById('bot-err-text').textContent='Token noto'g'ri!';showMsg('bot-err',true);}});
+  checkBot(token).then(ok=>{if(ok)showMsg('bot-ok');else{document.getElementById('bot-err-text').textContent='Token noto`g`ri!';showMsg('bot-err',true);}});
 }
 function applyBot(token,ids){window.MIRZO_YUSUF_BOT_TOKEN=token;window.MIRZO_YUSUF_ADMIN_IDS=ids;}
 async function checkBot(token){
@@ -1179,7 +1179,7 @@ async function checkBot(token){
       return true;
     }else{
       if(dot)dot.className='bot-dot warn';
-      if(txt)txt.textContent='Token noto'g'ri';
+      if(txt)txt.textContent='Token noto`g`ri';
       if(sBotEl)sBotEl.textContent='⚠️';
       return false;
     }
@@ -1203,7 +1203,7 @@ async function testBot(){
 // ──────── DELETE ────────
 function del(ref,id){
   if(!db)return;
-  if(!confirm('O'chirishni tasdiqlaysizmi?'))return;
+  if(!confirm('O`chirishni tasdiqlaysizmi?'))return;
   db.ref(ref+'/'+id).remove();
 }
 
