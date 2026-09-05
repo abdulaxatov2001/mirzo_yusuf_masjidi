@@ -8,20 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script>
-
-function toggleSidebar() {
-  const sb = document.getElementById('sidebar');
-  const ov = document.querySelector('.sidebar-overlay');
-  if(sb) sb.classList.toggle('open');
-  if(ov) ov.classList.toggle('open');
-}
-function toggleSidebar() {
-  const sb = document.getElementById('sidebar');
-  const ov = document.querySelector('.sidebar-overlay');
-  sb.classList.toggle('open');
-  ov.classList.toggle('open');
-}
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="firebase-config.js"></script>
@@ -694,6 +680,13 @@ function toggleSidebar() {
 </div>
 
 <script>
+
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.querySelector('.sidebar-overlay');
+  if (sb) sb.classList.toggle('open');
+  if (ov) ov.classList.toggle('open');
+}
 'use strict';
 
 const PASSWORDS = ['masjid2026', 'admin123'];
